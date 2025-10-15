@@ -6,9 +6,10 @@ import Footer from "@/components/Footer";
 import Analytics from "@/components/Analytics";
 
 const notoThai = Noto_Sans_Thai({
-  variable: "--font-geist-sans",
-  subsets: ["thai"],
+  variable: "--font-noto-thai",
+  subsets: ["thai", "latin"],
   weight: ["300","400","500","700"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -33,8 +34,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${notoThai.variable} antialiased`}>
+    <html lang="th">
+      <body className={`${notoThai.variable} font-sans antialiased`}>
         <Analytics />
         <Navbar />
         {children}
