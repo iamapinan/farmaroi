@@ -1,0 +1,134 @@
+@import "tailwindcss";
+
+/* ธีมแบรนด์ ฟาร์มอร่อย */
+:root {
+  --background: #ffffff;
+  --foreground: #1a1a1a;
+  --brand-primary: #af4c0f;
+  --brand-success: #00bf63; /* ใช้เฉพาะปุ่มยืนยัน/สำเร็จ */
+  --brand-brown: #32241c;
+  --brand-accent: #f9d53d;
+  --brand-orange: #ff8c42; /* สีส้มสดสำหรับ accent */
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-brand: var(--brand-primary);
+  --color-brand-foreground: #ffffff;
+  --color-success: var(--brand-success);
+  --color-brown: var(--brand-brown);
+  --color-accent: var(--brand-accent);
+  --color-orange: var(--brand-orange);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0b0b0b;
+    --foreground: #e7e7e7;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out;
+}
+
+.animate-slide-in {
+  animation: slideIn 0.6s ease-out;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.6s ease-out;
+}
+
+/* Buttons */
+.btn {
+  @apply inline-flex items-center justify-center rounded-lg px-6 py-3 text-sm font-semibold transition-all duration-300 shadow-sm hover:shadow-lg;
+}
+.btn-primary { 
+  @apply bg-gradient-to-r from-brand to-orange text-white hover:scale-105 active:scale-95; 
+}
+.btn-success { 
+  @apply bg-gradient-to-r from-success to-[#00d970] text-white hover:scale-105 active:scale-95; 
+}
+.btn-outline { 
+  @apply border-2 border-brown text-brown hover:bg-brown hover:text-white hover:scale-105 active:scale-95; 
+}
+
+/* Containers */
+.container-site { 
+  @apply mx-auto w-full max-w-7xl px-4 md:px-6 lg:px-8; 
+}
+
+/* Typography */
+.section-title { 
+  @apply text-3xl md:text-4xl font-bold text-brown mb-8 relative inline-block;
+}
+
+.section-title::after {
+  content: '';
+  @apply absolute -bottom-4 left-0 w-20 h-1 bg-gradient-to-r from-brand to-accent rounded-full;
+}
+
+/* Cards */
+.card {
+  @apply bg-white rounded-xl shadow-md hover:shadow-2xl transition-all duration-300 overflow-hidden;
+}
+
+.card-hover {
+  @apply hover:-translate-y-2 hover:scale-[1.02];
+}
+
+/* Gradients */
+.gradient-brand {
+  @apply bg-gradient-to-br from-brown via-brand to-orange;
+}
+
+.gradient-overlay {
+  @apply absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent;
+}
+
+/* Badge */
+.badge {
+  @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-medium;
+}
+
+.badge-signature {
+  @apply bg-gradient-to-r from-accent to-yellow-400 text-brown;
+}
+
+.badge-spicy {
+  @apply bg-gradient-to-r from-red-500 to-orange-500 text-white;
+}
+
+.badge-new {
+  @apply bg-gradient-to-r from-orange to-yellow-400 text-white;
+}
+
+.badge-success {
+  @apply bg-gradient-to-r from-success to-green-400 text-white;
+}
+

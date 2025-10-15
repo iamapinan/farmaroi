@@ -1,0 +1,206 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  STAFF
+}
+
+enum PostStatus {
+  DRAFT
+  PUBLISHED
+}
+
+model User {
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  passwordHash String
+  role         Role     @default(STAFF)
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  posts     Post[]
+  auditLogs AuditLog[]
+
+  @@index([email])
+}
+
+model Media {
+  id        String   @id @default(cuid())
+  url       String
+  alt       String?
+  width     Int?
+  height    Int?
+  type      String?
+  createdAt DateTime @default(now())
+
+  menuItems  MenuItem[]
+  promotions Promotion[]
+  posts      Post[]
+  banners    Banner[]
+}
+
+model Category {
+  id        String   @id @default(cuid())
+  name      String
+  slug      String   @unique
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  menuItems MenuItem[]
+
+  @@index([slug])
+}
+
+model MenuItem {
+  id          String   @id @default(cuid())
+  categoryId  String
+  name        String
+  slug        String   @unique
+  description String?  @db.Text
+  price       Float
+  spicyLevel  Int      @default(0)
+  isSignature Boolean  @default(false)
+  imageId     String?
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  category   Category  @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  image      Media?    @relation(fields: [imageId], references: [id], onDelete: SetNull)
+
+  @@index([categoryId])
+  @@index([slug])
+  @@index([isActive])
+}
+
+model Promotion {
+  id          String    @id @default(cuid())
+  title       String
+  slug        String    @unique
+  description String?   @db.Text
+  startAt     DateTime?
+  endAt       DateTime?
+  imageId     String?
+  isActive    Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  image      Media?      @relation(fields: [imageId], references: [id], onDelete: SetNull)
+
+  @@index([slug])
+  @@index([isActive])
+}
+
+model Post {
+  id          String     @id @default(cuid())
+  title       String
+  slug        String     @unique
+  content     String     @db.Text
+  excerpt     String?    @db.Text
+  coverId     String?
+  publishedAt DateTime?
+  authorId    String
+  status      PostStatus @default(DRAFT)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  cover      Media?      @relation(fields: [coverId], references: [id], onDelete: SetNull)
+  author     User        @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  @@index([slug])
+  @@index([status])
+  @@index([authorId])
+}
+
+model Banner {
+  id        String   @id @default(cuid())
+  title     String
+  imageId   String?
+  link      String?
+  position  String   @default("hero")
+  sortOrder Int      @default(0)
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  image Media? @relation(fields: [imageId], references: [id], onDelete: SetNull)
+
+  @@index([position])
+  @@index([isActive])
+}
+
+model Location {
+  id        String   @id @default(cuid())
+  name      String
+  address   String   @db.Text
+  mapUrl    String?
+  phone     String?
+  latitude  Float?
+  longitude Float?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  openingHours OpeningHour[]
+}
+
+model OpeningHour {
+  id         String  @id @default(cuid())
+  locationId String
+  weekday    Int
+  openTime   String
+  closeTime  String
+  isClosed   Boolean @default(false)
+
+  location Location @relation(fields: [locationId], references: [id], onDelete: Cascade)
+
+  @@unique([locationId, weekday])
+  @@index([locationId])
+}
+
+model Setting {
+  id    String @id @default(cuid())
+  key   String @unique
+  value String @db.Text
+
+  @@index([key])
+}
+
+model SeoContent {
+  id          String  @id @default(cuid())
+  entity      String
+  entityId    String
+  title       String?
+  description String? @db.Text
+  keywords    String? @db.Text
+  jsonld      String? @db.Text
+
+  @@unique([entity, entityId])
+  @@index([entity])
+  @@index([entityId])
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  actorId   String
+  action    String
+  entity    String
+  entityId  String?
+  diff      String?  @db.Text
+  createdAt DateTime @default(now())
+
+  actor User @relation(fields: [actorId], references: [id], onDelete: Cascade)
+
+  @@index([actorId])
+  @@index([entity])
+  @@index([createdAt])
+}
