@@ -1,10 +1,13 @@
 import { auth, signOut } from "@/lib/auth";
-import { redirect } from "next/navigation";
 import Link from "next/link";
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   const session = await auth();
-  if (!session) redirect("/admin/login");
+  
+  // ถ้าไม่มี session ให้แสดงแค่ children (login page) โดยไม่มี layout
+  if (!session) {
+    return <>{children}</>;
+  }
 
   const menuItems = [
     { href: "/admin/dashboard", label: "แดชบอร์ด" },
