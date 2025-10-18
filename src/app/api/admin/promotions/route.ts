@@ -1,6 +1,7 @@
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 
 export async function GET() {
   try {
@@ -24,6 +25,10 @@ export async function POST(req: Request) {
 
     const data = await req.json();
     const promotion = await prisma.promotion.create({ data });
+    
+    revalidatePath("/");
+    revalidatePath("/promotions");
+    
     return NextResponse.json(promotion, { status: 201 });
   } catch {
     return NextResponse.json({ error: "Failed to create promotion" }, { status: 500 });

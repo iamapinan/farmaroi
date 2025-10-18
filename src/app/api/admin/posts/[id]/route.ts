@@ -1,6 +1,7 @@
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 
 export async function GET(req: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
@@ -30,6 +31,11 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: stri
       where: { id },
       data,
     });
+    
+    revalidatePath("/");
+    revalidatePath("/news");
+    revalidatePath(`/news/${post.slug}`);
+    
     return NextResponse.json(post);
   } catch {
     return NextResponse.json({ error: "Failed to update post" }, { status: 500 });
@@ -43,6 +49,10 @@ export async function DELETE(req: Request, { params }: { params: Promise<{ id: s
 
     const { id } = await params;
     await prisma.post.delete({ where: { id } });
+    
+    revalidatePath("/");
+    revalidatePath("/news");
+    
     return NextResponse.json({ success: true });
   } catch {
     return NextResponse.json({ error: "Failed to delete post" }, { status: 500 });

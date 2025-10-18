@@ -1,5 +1,6 @@
 import { getActivePromotions } from "@/services/promotionService";
 import Image from "next/image";
+import Link from "next/link";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -66,35 +67,28 @@ export default async function PromotionsPage() {
         ) : (
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {promotions.map((promo, index) => (
-              <div
+              <Link
                 key={promo.id}
+                href={`/promotions/${promo.slug}`}
                 className="card card-hover group animate-scale-in"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
-                {promo.image ? (
-                  <div className="relative aspect-[16/10] w-full bg-gradient-to-br from-accent/20 to-orange-100 overflow-hidden">
-                    <Image
-                      src={promo.image.url}
-                      alt={promo.image.alt || promo.title}
-                      fill
-                      className="object-cover group-hover:scale-110 transition-transform duration-500"
-                    />
-                    <div className="gradient-overlay"></div>
-                    
-                    {/* Badge */}
-                    <div className="absolute top-4 left-4">
-                      <span className="badge badge-new shadow-lg text-sm">
-                        🎉 โปรโมชัน
-                      </span>
-                    </div>
+                <div className="relative aspect-[16/10] w-full bg-gradient-to-br from-accent/20 to-orange-100 overflow-hidden">
+                  <Image
+                    src={promo.image?.url || `https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=1200&q=80`}
+                    alt={promo.image?.alt || promo.title}
+                    fill
+                    className="object-cover group-hover:scale-110 transition-transform duration-500"
+                  />
+                  <div className="gradient-overlay"></div>
+                  
+                  {/* Badge */}
+                  <div className="absolute top-4 left-4">
+                    <span className="badge badge-new shadow-lg text-sm">
+                      🎉 โปรโมชัน
+                    </span>
                   </div>
-                ) : (
-                  <div className="relative aspect-[16/10] w-full bg-gradient-to-br from-accent via-orange-200 to-secondary flex items-center justify-center">
-                    <svg className="w-20 h-20 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" />
-                    </svg>
-                  </div>
-                )}
+                </div>
                 
                 <div className="p-6">
                   <h2 className="text-2xl font-bold text-brown mb-3 group-hover:text-brand transition-colors">
@@ -108,7 +102,7 @@ export default async function PromotionsPage() {
                   )}
                   
                   {(promo.startAt || promo.endAt) && (
-                    <div className="flex items-center gap-2 text-sm text-gray-500 bg-gray-50 rounded-lg px-3 py-2">
+                    <div className="flex items-center gap-2 text-sm text-gray-500 bg-gray-50 rounded-lg px-3 py-2 mb-4">
                       <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                       </svg>
@@ -119,8 +113,15 @@ export default async function PromotionsPage() {
                       </span>
                     </div>
                   )}
+                  
+                  <div className="flex items-center text-brand text-sm font-medium">
+                    ดูรายละเอียด
+                    <svg className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         )}

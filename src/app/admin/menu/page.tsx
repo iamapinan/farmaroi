@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import ImageUpload from "@/components/ImageUpload";
 
 interface MenuItem {
   id: string;
@@ -12,7 +13,9 @@ interface MenuItem {
   isSignature: boolean;
   isActive: boolean;
   categoryId: string;
+  imageId?: string;
   category: { id: string; name: string };
+  image?: { id: string; url: string; alt?: string | null } | null;
 }
 
 interface Category {
@@ -26,6 +29,7 @@ export default function AdminMenuPage() {
   const [showModal, setShowModal] = useState(false);
   const [editingItem, setEditingItem] = useState<MenuItem | null>(null);
   const [loading, setLoading] = useState(false);
+  const [imageId, setImageId] = useState<string>("");
 
   useEffect(() => {
     fetchItems();
@@ -55,6 +59,7 @@ export default function AdminMenuPage() {
       isSignature: formData.get("isSignature") === "on",
       isActive: formData.get("isActive") === "on",
       categoryId: formData.get("categoryId") as string,
+      imageId: imageId || null,
     };
 
     const url = editingItem ? `/api/admin/menu/${editingItem.id}` : "/api/admin/menu";
@@ -65,6 +70,7 @@ export default function AdminMenuPage() {
       await fetchItems();
       setShowModal(false);
       setEditingItem(null);
+      setImageId("");
     }
     setLoading(false);
   };
@@ -122,6 +128,11 @@ export default function AdminMenuPage() {
           <div className="bg-white rounded-lg p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
             <h2 className="text-xl font-bold mb-4">{editingItem ? "แก้ไขเมนู" : "เพิ่มเมนูใหม่"}</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
+              <ImageUpload 
+                currentImage={editingItem?.image}
+                onImageUploaded={setImageId}
+                folder="menu"
+              />
               <div>
                 <label className="block text-sm font-medium mb-1">ชื่อเมนู</label>
                 <input type="text" name="name" defaultValue={editingItem?.name} required className="w-full px-3 py-2 border border-black/10 rounded-lg" />
@@ -163,7 +174,7 @@ export default function AdminMenuPage() {
               </div>
               <div className="flex gap-2 pt-4">
                 <button type="submit" disabled={loading} className="btn btn-primary flex-1">{loading ? "กำลังบันทึก..." : "บันทึก"}</button>
-                <button type="button" onClick={() => setShowModal(false)} className="btn btn-outline flex-1">ยกเลิก</button>
+                <button type="button" onClick={() => { setShowModal(false); setImageId(""); }} className="btn btn-outline flex-1">ยกเลิก</button>
               </div>
             </form>
           </div>

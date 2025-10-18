@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import ImageUpload from "@/components/ImageUpload";
 
 interface Post {
   id: string;
@@ -8,9 +9,11 @@ interface Post {
   slug: string;
   excerpt?: string;
   content: string;
+  coverId?: string;
   status: "DRAFT" | "PUBLISHED";
   publishedAt?: string;
   author: { id: string; name: string };
+  cover?: { id: string; url: string; alt?: string | null } | null;
 }
 
 export default function AdminPostsPage() {
@@ -18,6 +21,7 @@ export default function AdminPostsPage() {
   const [showModal, setShowModal] = useState(false);
   const [editingItem, setEditingItem] = useState<Post | null>(null);
   const [loading, setLoading] = useState(false);
+  const [coverId, setCoverId] = useState<string>("");
 
   useEffect(() => { fetchItems(); }, []);
 
@@ -35,6 +39,7 @@ export default function AdminPostsPage() {
       slug: formData.get("slug") as string,
       excerpt: formData.get("excerpt") as string,
       content: formData.get("content") as string,
+      coverId: coverId || null,
       status: formData.get("status") as "DRAFT" | "PUBLISHED",
       publishedAt: formData.get("status") === "PUBLISHED" ? new Date().toISOString() : null,
     };
@@ -47,6 +52,7 @@ export default function AdminPostsPage() {
       await fetchItems();
       setShowModal(false);
       setEditingItem(null);
+      setCoverId("");
     }
     setLoading(false);
   };
@@ -101,6 +107,11 @@ export default function AdminPostsPage() {
           <div className="bg-white rounded-lg p-6 w-full max-w-4xl max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
             <h2 className="text-xl font-bold mb-4">{editingItem ? "แก้ไขข่าวสาร" : "เพิ่มข่าวสารใหม่"}</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
+              <ImageUpload 
+                currentImage={editingItem?.cover}
+                onImageUploaded={setCoverId}
+                folder="posts"
+              />
               <div>
                 <label className="block text-sm font-medium mb-1">หัวข้อข่าว</label>
                 <input type="text" name="title" defaultValue={editingItem?.title} required className="w-full px-3 py-2 border border-black/10 rounded-lg" />
@@ -126,7 +137,7 @@ export default function AdminPostsPage() {
               </div>
               <div className="flex gap-2 pt-4">
                 <button type="submit" disabled={loading} className="btn btn-primary flex-1">{loading ? "กำลังบันทึก..." : "บันทึก"}</button>
-                <button type="button" onClick={() => setShowModal(false)} className="btn btn-outline flex-1">ยกเลิก</button>
+                <button type="button" onClick={() => { setShowModal(false); setCoverId(""); }} className="btn btn-outline flex-1">ยกเลิก</button>
               </div>
             </form>
           </div>

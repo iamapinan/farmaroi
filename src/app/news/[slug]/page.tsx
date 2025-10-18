@@ -23,16 +23,15 @@ export default async function NewsDetailPage({ params }: Props) {
   return (
     <div className="min-h-screen bg-background">
       <article className="container-site py-10 max-w-3xl">
-        {post.cover && (
-          <div className="relative aspect-video w-full bg-gray-100 rounded-lg overflow-hidden mb-6">
-            <Image
-              src={post.cover.url}
-              alt={post.cover.alt || post.title}
-              fill
-              className="object-cover"
-            />
-          </div>
-        )}
+        <div className="relative aspect-video w-full bg-gradient-to-br from-brand/20 to-amber-100 rounded-lg overflow-hidden mb-6">
+          <Image
+            src={post.cover?.url || "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1200&q=80"}
+            alt={post.cover?.alt || post.title}
+            fill
+            className="object-cover"
+            priority
+          />
+        </div>
         <h1 className="text-3xl md:text-4xl font-bold text-brown">{post.title}</h1>
         <p className="mt-2 text-sm text-foreground/60">
           {post.publishedAt && new Date(post.publishedAt).toLocaleDateString("th-TH")} • {post.author.name}

@@ -18,6 +18,7 @@
     "seed": "tsx prisma/seed.ts"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.913.0",
     "@prisma/client": "^6.17.1",
     "bcryptjs": "^3.0.2",
     "googleapis": "^162.0.0",

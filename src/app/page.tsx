@@ -4,6 +4,7 @@ import { getSignatureItems } from "@/services/menuService";
 import { getActivePromotions } from "@/services/promotionService";
 import { generateLocalBusinessJsonLd } from "@/lib/seo";
 import JsonLd from "@/components/JsonLd";
+import ParallaxBg from "@/components/ParallaxBg";
 
 export default async function Home() {
   const signatureItems = await getSignatureItems();
@@ -15,7 +16,12 @@ export default async function Home() {
       <div className="min-h-screen">
         {/* Hero Section */}
         <section className="relative min-h-[600px] md:min-h-[700px] flex items-center gradient-brand overflow-hidden">
-          <div className="absolute inset-0 opacity-10">
+          <ParallaxBg 
+            imageUrl="https://images.unsplash.com/photo-1466637574441-749b8f19452f?w=1920&q=80" 
+            className="opacity-20"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-brand/80 via-brand/70 to-brown/80 z-0"></div>
+          <div className="absolute inset-0 opacity-10 z-0">
             <div className="absolute top-20 left-10 w-72 h-72 bg-accent rounded-full blur-3xl"></div>
             <div className="absolute bottom-20 right-10 w-96 h-96 bg-secondary rounded-full blur-3xl"></div>
           </div>
@@ -54,10 +60,10 @@ export default async function Home() {
                   <div className="absolute inset-0 bg-gradient-to-br from-accent/30 to-secondary/30 rounded-3xl rotate-6"></div>
                   <div className="relative bg-white rounded-3xl shadow-2xl overflow-hidden -rotate-3 hover:rotate-0 transition-transform duration-500">
                     <Image 
-                      src="/vercel.svg" 
+                      src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&q=80" 
                       alt="ฟาร์มอร่อย - อาหารสดใหม่" 
                       fill 
-                      className="object-cover dark:invert p-12" 
+                      className="object-cover" 
                       priority
                     />
                   </div>
@@ -135,23 +141,21 @@ export default async function Home() {
               </div>
               
               <div className="grid md:grid-cols-3 gap-8">
-                {signatureItems.slice(0, 3).map((item, i) => (
+                {signatureItems.slice(0, 3).map((item: typeof signatureItems[number], i: number) => (
                   <div key={item.id} className="card card-hover group animate-scale-in" style={{ animationDelay: `${i * 0.1}s` }}>
-                    {item.image && (
-                      <div className="relative aspect-[4/3] w-full bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden">
-                        <Image
-                          src={item.image.url}
-                          alt={item.image.alt || item.name}
-                          fill
-                          className="object-cover group-hover:scale-110 transition-transform duration-500"
-                        />
-                        <div className="absolute top-4 right-4">
-                          <span className="badge badge-signature shadow-lg">
-                            ซิกเนเจอร์
-                          </span>
-                        </div>
+                    <div className="relative aspect-[4/3] w-full bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden">
+                      <Image
+                        src={item.image?.url || `https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&q=80`}
+                        alt={item.image?.alt || item.name}
+                        fill
+                        className="object-cover group-hover:scale-110 transition-transform duration-500"
+                      />
+                      <div className="absolute top-4 right-4">
+                        <span className="badge badge-signature shadow-lg">
+                          ซิกเนเจอร์
+                        </span>
                       </div>
-                    )}
+                    </div>
                     <div className="p-6">
                       <h3 className="text-xl font-bold text-brown mb-2 group-hover:text-brand transition-colors">{item.name}</h3>
                       {item.description && (
@@ -192,31 +196,29 @@ export default async function Home() {
               </div>
               
               <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-                {promotions.slice(0, 2).map((promo, i) => (
-                  <div key={promo.id} className="card card-hover group animate-fade-in" style={{ animationDelay: `${i * 0.1}s` }}>
-                    {promo.image && (
-                      <div className="relative aspect-video w-full bg-gradient-to-br from-accent/20 to-orange-100 overflow-hidden">
-                        <Image
-                          src={promo.image.url}
-                          alt={promo.image.alt || promo.title}
-                          fill
-                          className="object-cover group-hover:scale-110 transition-transform duration-500"
-                        />
-                        <div className="gradient-overlay"></div>
-                        <div className="absolute top-4 left-4">
-                          <span className="badge badge-new shadow-lg">
-                            โปรโมชัน
-                          </span>
-                        </div>
+                {promotions.slice(0, 2).map((promo, i: number) => (
+                  <Link key={promo.id} href={`/promotions/${promo.slug}`} className="card card-hover group animate-fade-in" style={{ animationDelay: `${i * 0.1}s` }}>
+                    <div className="relative aspect-video w-full bg-gradient-to-br from-accent/20 to-orange-100 overflow-hidden">
+                      <Image
+                        src={promo.image?.url || `https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=1200&q=80`}
+                        alt={promo.image?.alt || promo.title}
+                        fill
+                        className="object-cover group-hover:scale-110 transition-transform duration-500"
+                      />
+                      <div className="gradient-overlay"></div>
+                      <div className="absolute top-4 left-4">
+                        <span className="badge badge-new shadow-lg">
+                          โปรโมชัน
+                        </span>
                       </div>
-                    )}
+                    </div>
                     <div className="p-6">
                       <h3 className="text-2xl font-bold text-brown mb-3 group-hover:text-brand transition-colors">{promo.title}</h3>
                       {promo.description && (
                         <p className="text-gray-600 mb-4 line-clamp-3">{promo.description}</p>
                       )}
                       {(promo.startAt || promo.endAt) && (
-                        <div className="flex items-center text-sm text-gray-500">
+                        <div className="flex items-center text-sm text-gray-500 mb-3">
                           <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                           </svg>
@@ -225,8 +227,14 @@ export default async function Home() {
                           {promo.endAt && `${new Date(promo.endAt).toLocaleDateString("th-TH")}`}
                         </div>
                       )}
+                      <div className="flex items-center text-brand text-sm font-medium">
+                        ดูรายละเอียด
+                        <svg className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                      </div>
                     </div>
-                  </div>
+                  </Link>
                 ))}
               </div>
               

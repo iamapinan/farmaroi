@@ -55,21 +55,19 @@ export default async function NewsPage() {
                 className="block mb-12 card card-hover group animate-fade-in"
               >
                 <div className="grid md:grid-cols-2 gap-0">
-                  {posts[0].cover && (
-                    <div className="relative aspect-video md:aspect-auto md:h-full bg-gradient-to-br from-brand/20 to-amber-100 overflow-hidden">
-                      <Image
-                        src={posts[0].cover.url}
-                        alt={posts[0].cover.alt || posts[0].title}
-                        fill
-                        className="object-cover group-hover:scale-110 transition-transform duration-500"
-                      />
-                      <div className="absolute top-4 left-4">
-                        <span className="badge badge-new shadow-lg">
-                          ⭐ เรื่องเด่น
-                        </span>
-                      </div>
+                  <div className="relative aspect-video md:aspect-auto md:h-full bg-gradient-to-br from-brand/20 to-amber-100 overflow-hidden">
+                    <Image
+                      src={posts[0].cover?.url || `https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1200&q=80`}
+                      alt={posts[0].cover?.alt || posts[0].title}
+                      fill
+                      className="object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                    <div className="absolute top-4 left-4">
+                      <span className="badge badge-new shadow-lg">
+                        ⭐ เรื่องเด่น
+                      </span>
                     </div>
-                  )}
+                  </div>
                   <div className="p-8 md:p-10 flex flex-col justify-center">
                     <div className="flex items-center gap-3 text-sm text-gray-500 mb-4">
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -109,16 +107,14 @@ export default async function NewsPage() {
                   className="card card-hover group animate-scale-in"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
-                  {post.cover && (
-                    <div className="relative aspect-video w-full bg-gradient-to-br from-brand/20 to-amber-100 overflow-hidden">
-                      <Image
-                        src={post.cover.url}
-                        alt={post.cover.alt || post.title}
-                        fill
-                        className="object-cover group-hover:scale-110 transition-transform duration-500"
-                      />
-                    </div>
-                  )}
+                  <div className="relative aspect-video w-full bg-gradient-to-br from-brand/20 to-amber-100 overflow-hidden">
+                    <Image
+                      src={post.cover?.url || `https://images.unsplash.com/photo-1493770348161-369560ae357d?w=800&q=80`}
+                      alt={post.cover?.alt || post.title}
+                      fill
+                      className="object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                  </div>
                   <div className="p-6">
                     <div className="flex items-center gap-2 text-xs text-gray-500 mb-3">
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

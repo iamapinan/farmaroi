@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import ImageUpload from "@/components/ImageUpload";
 
 interface Promotion {
   id: string;
@@ -9,7 +10,9 @@ interface Promotion {
   description?: string;
   startAt?: string;
   endAt?: string;
+  imageId?: string;
   isActive: boolean;
+  image?: { id: string; url: string; alt?: string | null } | null;
 }
 
 export default function AdminPromotionsPage() {
@@ -17,6 +20,7 @@ export default function AdminPromotionsPage() {
   const [showModal, setShowModal] = useState(false);
   const [editingItem, setEditingItem] = useState<Promotion | null>(null);
   const [loading, setLoading] = useState(false);
+  const [imageId, setImageId] = useState<string>("");
 
   useEffect(() => { fetchItems(); }, []);
 
@@ -35,6 +39,7 @@ export default function AdminPromotionsPage() {
       description: formData.get("description") as string,
       startAt: formData.get("startAt") ? new Date(formData.get("startAt") as string).toISOString() : null,
       endAt: formData.get("endAt") ? new Date(formData.get("endAt") as string).toISOString() : null,
+      imageId: imageId || null,
       isActive: formData.get("isActive") === "on",
     };
 
@@ -46,6 +51,7 @@ export default function AdminPromotionsPage() {
       await fetchItems();
       setShowModal(false);
       setEditingItem(null);
+      setImageId("");
     }
     setLoading(false);
   };
@@ -97,9 +103,14 @@ export default function AdminPromotionsPage() {
 
       {showModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50" onClick={() => setShowModal(false)}>
-          <div className="bg-white rounded-lg p-6 w-full max-w-2xl" onClick={(e) => e.stopPropagation()}>
+          <div className="bg-white rounded-lg p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
             <h2 className="text-xl font-bold mb-4">{editingItem ? "แก้ไขโปรโมชัน" : "เพิ่มโปรโมชันใหม่"}</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
+              <ImageUpload 
+                currentImage={editingItem?.image}
+                onImageUploaded={setImageId}
+                folder="promotions"
+              />
               <div>
                 <label className="block text-sm font-medium mb-1">ชื่อโปรโมชัน</label>
                 <input type="text" name="title" defaultValue={editingItem?.title} required className="w-full px-3 py-2 border border-black/10 rounded-lg" />
@@ -130,7 +141,7 @@ export default function AdminPromotionsPage() {
               </div>
               <div className="flex gap-2 pt-4">
                 <button type="submit" disabled={loading} className="btn btn-primary flex-1">{loading ? "กำลังบันทึก..." : "บันทึก"}</button>
-                <button type="button" onClick={() => setShowModal(false)} className="btn btn-outline flex-1">ยกเลิก</button>
+                <button type="button" onClick={() => { setShowModal(false); setImageId(""); }} className="btn btn-outline flex-1">ยกเลิก</button>
               </div>
             </form>
           </div>
