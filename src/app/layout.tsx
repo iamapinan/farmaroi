@@ -34,8 +34,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="th">
-      <body className={`${notoThai.variable} font-sans antialiased`}>
+    <html lang="th" suppressHydrationWarning>
+      <body className={`${notoThai.variable} font-sans antialiased`} suppressHydrationWarning>
         <Analytics />
         <Navbar />
         {children}

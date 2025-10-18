@@ -16,6 +16,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
     { href: "/admin/posts", label: "ข่าวสาร" },
     { href: "/admin/banners", label: "แบนเนอร์" },
     { href: "/admin/locations", label: "สาขา" },
+    { href: "/admin/contacts", label: "ข้อความติดต่อ" },
   ];
 
   if (session.user?.role === "ADMIN") {

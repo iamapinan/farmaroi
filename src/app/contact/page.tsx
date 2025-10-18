@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import ContactForm from "@/components/ContactForm";
 
 export const metadata: Metadata = {
   title: "ติดต่อเรา",
@@ -174,75 +175,7 @@ export default function ContactPage() {
 
           {/* Contact Form */}
           <div className="animate-fade-in">
-            <div className="card">
-              <div className="bg-gradient-to-r from-brand to-orange p-6 text-white">
-                <h2 className="text-2xl font-bold mb-2">ส่งข้อความถึงเรา</h2>
-                <p className="text-white/90">กรอกฟอร์มด้านล่าง เราจะติดต่อกลับโดยเร็ว</p>
-              </div>
-              <form className="p-6 space-y-5">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-                    ชื่อ-นามสกุล <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    required
-                    className="w-full border-2 border-gray-200 rounded-lg px-4 py-3 focus:border-brand focus:ring-2 focus:ring-brand/20 outline-none transition-all"
-                    placeholder="ชื่อของคุณ"
-                  />
-                </div>
-                
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                    อีเมล <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    required
-                    className="w-full border-2 border-gray-200 rounded-lg px-4 py-3 focus:border-brand focus:ring-2 focus:ring-brand/20 outline-none transition-all"
-                    placeholder="email@example.com"
-                  />
-                </div>
-                
-                <div>
-                  <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
-                    เบอร์โทรศัพท์
-                  </label>
-                  <input
-                    type="tel"
-                    id="phone"
-                    className="w-full border-2 border-gray-200 rounded-lg px-4 py-3 focus:border-brand focus:ring-2 focus:ring-brand/20 outline-none transition-all"
-                    placeholder="08X-XXX-XXXX"
-                  />
-                </div>
-                
-                <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
-                    ข้อความ <span className="text-red-500">*</span>
-                  </label>
-                  <textarea
-                    id="message"
-                    rows={5}
-                    required
-                    className="w-full border-2 border-gray-200 rounded-lg px-4 py-3 focus:border-brand focus:ring-2 focus:ring-brand/20 outline-none transition-all resize-none"
-                    placeholder="ข้อความของคุณ..."
-                  />
-                </div>
-                
-                <button type="submit" className="btn btn-success w-full justify-center text-base">
-                  <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-                  </svg>
-                  ส่งข้อความ
-                </button>
-                
-                <p className="text-xs text-gray-500 text-center">
-                  เราจะติดต่อกลับภายใน 24 ชั่วโมง
-                </p>
-              </form>
-            </div>
+            <ContactForm />
           </div>
         </div>
       </section>
