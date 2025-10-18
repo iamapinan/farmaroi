@@ -251,14 +251,14 @@ export default async function Home() {
         )}
 
         {/* CTA Section */}
-        <section className="py-20 gradient-brand relative overflow-hidden">
+        <section className="py-20 border-brown-200 border-t-2 relative overflow-hidden">
           <div className="absolute inset-0 opacity-10">
             <div className="absolute top-0 left-1/4 w-96 h-96 bg-accent rounded-full blur-3xl"></div>
             <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-secondary rounded-full blur-3xl"></div>
           </div>
           
           <div className="container-site relative z-10 text-center text-white">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">พร้อมมาลิ้มรสแล้วหรือยัง?</h2>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">พร้อมที่จะมาเที่ยว และหาของอร่อยทานแล้วหรือยัง?</h2>
             <p className="text-xl md:text-2xl text-white/90 mb-10 max-w-2xl mx-auto">
               มาพบกับประสบการณ์รสชาติใหม่ที่ฟาร์มอร่อย เปิดทุกวันเว้นวันอังคาร 10:00-20:00 น.
             </p>
