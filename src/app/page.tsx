@@ -18,7 +18,7 @@ export default async function Home() {
         <section className="relative min-h-[600px] md:min-h-[700px] flex items-center gradient-brand overflow-hidden">
           <ParallaxBg 
             imageUrl="https://images.unsplash.com/photo-1466637574441-749b8f19452f?w=1920&q=80" 
-            className="opacity-20"
+            className="opacity-60"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-brand/80 via-brand/70 to-brown/80 z-0"></div>
           <div className="absolute inset-0 opacity-10 z-0">
