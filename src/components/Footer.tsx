@@ -1,5 +1,6 @@
 import { humanOpeningToday, isOpenNow } from "@/lib/opening-hours";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Footer() {
   const open = isOpenNow();
@@ -13,8 +14,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="lg:col-span-1">
             <div className="flex items-center gap-3 mb-4">
-              <img src="/logo-w.png" alt="ฟาร์มอร่อย" className="h-24 " />
-              
+              <Image src="/logo-w.png" alt="ฟาร์มอร่อย" width={96} height={96} className="h-24 w-auto" />
             </div>
             <p className="text-white/80 text-sm leading-relaxed">
               บรรยากาศสไตล์ฟาร์มคาเฟ่ ใกล้ชิดธรรมชาติ เด่นเรื่องกะเพราสูตรเด็ดและกาแฟหอมคาราเมล
