@@ -6,9 +6,27 @@ import { getPublishedPosts } from "@/services/postService";
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://example.com";
 
-  const menuItems = await getMenuItems({ isActive: true });
-  const promotions = await getActivePromotions();
-  const posts = await getPublishedPosts(100);
+  let menuItems: any[] = [];
+  let promotions: any[] = [];
+  let posts: any[] = [];
+
+  try {
+    menuItems = await getMenuItems({ isActive: true });
+  } catch (error) {
+    console.warn("Failed to fetch menu items for sitemap:", error);
+  }
+
+  try {
+    promotions = await getActivePromotions();
+  } catch (error) {
+    console.warn("Failed to fetch promotions for sitemap:", error);
+  }
+
+  try {
+    posts = await getPublishedPosts(100);
+  } catch (error) {
+    console.warn("Failed to fetch posts for sitemap:", error);
+  }
 
   const staticPages = [
     { url: baseUrl, lastModified: new Date(), priority: 1.0 },
