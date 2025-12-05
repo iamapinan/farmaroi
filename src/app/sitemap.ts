@@ -6,9 +6,9 @@ import { getPublishedPosts } from "@/services/postService";
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://example.com";
 
-  let menuItems: any[] = [];
-  let promotions: any[] = [];
-  let posts: any[] = [];
+  let menuItems: Awaited<ReturnType<typeof getMenuItems>> = [];
+  let promotions: Awaited<ReturnType<typeof getActivePromotions>> = [];
+  let posts: Awaited<ReturnType<typeof getPublishedPosts>> = [];
 
   try {
     menuItems = await getMenuItems({ isActive: true });
