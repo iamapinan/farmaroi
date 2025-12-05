@@ -1,15 +1,22 @@
 "use client";
 
 import { useState } from "react";
+import Turnstile from "react-turnstile";
 
 export default function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
     setMessage(null);
+
+    if (!turnstileToken) {
+      setMessage({ type: "error", text: "กรุณายืนยันตัวตน (Turnstile)" });
+      return;
+    }
 
     const form = e.currentTarget;
     const formData = new FormData(form);
@@ -18,6 +25,7 @@ export default function ContactForm() {
       email: formData.get("email") as string,
       phone: formData.get("phone") as string,
       message: formData.get("message") as string,
+      turnstileToken,
     };
 
     try {
@@ -47,7 +55,7 @@ export default function ContactForm() {
 
   return (
     <div className="card">
-      <div className="bg-gradient-to-r from-brand to-orange p-6 text-white">
+      <div className="bg-brown p-6 text-white">
         <h2 className="text-2xl font-bold mb-2">ส่งข้อความถึงเรา</h2>
         <p className="text-white/90">กรอกฟอร์มด้านล่าง เราจะติดต่อกลับโดยเร็ว</p>
       </div>
@@ -127,11 +135,19 @@ export default function ContactForm() {
             placeholder="ข้อความของคุณ..."
           />
         </div>
+
+        {/* Cloudflare Turnstile */}
+        <div className="flex justify-start">
+          <Turnstile
+            sitekey="0x4AAAAAACE_yZQV12tdok_H"
+            onVerify={(token) => setTurnstileToken(token)}
+          />
+        </div>
         
         <button 
           type="submit" 
           disabled={isSubmitting}
-          className="btn btn-success w-full justify-center text-base disabled:opacity-50 disabled:cursor-not-allowed"
+          className="btn btn-primary w-full justify-center text-base disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {isSubmitting ? (
             <>

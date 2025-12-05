@@ -2,6 +2,7 @@ import { getPromotionBySlug } from "@/services/promotionService";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
+import ShareButton from "@/components/ShareButton";
 import type { Metadata } from "next";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -25,7 +26,7 @@ export default async function PromotionDetailPage({ params }: Props) {
     <div className="min-h-screen bg-gradient-to-b from-white via-orange-50/30 to-white">
       {/* Hero Section with Image */}
       <section className="relative bg-gradient-to-br from-accent/10 via-orange-50 to-secondary/10">
-        <div className="container-site py-10">
+        <div className="container-site py-10 mt-20">
           <div className="max-w-4xl mx-auto">
             <div className="relative aspect-video w-full bg-gradient-to-br from-accent/20 to-orange-100 rounded-2xl overflow-hidden shadow-2xl mb-8">
               <Image
@@ -49,7 +50,7 @@ export default async function PromotionDetailPage({ params }: Props) {
       </section>
 
       {/* Content */}
-      <section className="container-site pb-16 -mt-4">
+      <section className="container-site pb-16 mt-10">
         <article className="max-w-4xl mx-auto">
           <div className="bg-white rounded-2xl shadow-lg p-8 md:p-12">
             <h1 className="text-3xl md:text-5xl font-bold text-brown mb-6">
@@ -92,20 +93,23 @@ export default async function PromotionDetailPage({ params }: Props) {
 
             {/* CTA */}
             <div className="mt-10 pt-8 border-t border-gray-200">
-              <div className="flex flex-wrap gap-4">
-                <Link href="/menu" className="btn btn-primary text-base">
-                  <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                  </svg>
-                  ดูเมนูอาหาร
-                </Link>
-                <Link href="/locations" className="btn btn-outline text-base">
-                  <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                  </svg>
-                  ดูที่ตั้งร้าน
-                </Link>
+              <div className="flex flex-wrap items-center justify-between gap-4">
+                <div className="flex flex-wrap gap-4">
+                  <Link href="/menu" className="btn btn-primary text-base">
+                    <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                    </svg>
+                    ดูเมนูอาหาร
+                  </Link>
+                  <Link href="/locations" className="btn btn-outline text-base">
+                    <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                    ดูที่ตั้งร้าน
+                  </Link>
+                </div>
+                <ShareButton title={promotion.title} />
               </div>
             </div>
           </div>

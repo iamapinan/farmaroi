@@ -3,10 +3,18 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
+import { motion } from "framer-motion";
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+  const [hoveredPath, setHoveredPath] = useState<string | null>(pathname);
+
+  useEffect(() => {
+    setHoveredPath(pathname);
+  }, [pathname]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -16,118 +24,187 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Check if currently open (mock - you can connect to real logic)
+  const isOpen = true; 
+  
+  // Determine if navbar should be transparent (only on home page and not scrolled)
+  const isTransparent = pathname === "/" && !scrolled;
+
+  const navItems = [
+    { href: "/", label: "หน้าแรก" },
+    { href: "/menu", label: "เมนู" },
+    { href: "/promotions", label: "โปรโมชัน" },
+    { href: "/news", label: "ข่าวสาร" },
+    { href: "/about", label: "เรื่องราวของเรา" },
+    { href: "/locations", label: "สาขา" },
+  ];
+
+  // Hide navbar on admin pages
+  if (pathname?.startsWith("/admin")) {
+    return null;
+  }
+
   return (
-    <header 
-      className={`sticky top-0 z-50 transition-all duration-300 ${
-        scrolled 
-          ? "bg-white/95 backdrop-blur-lg shadow-lg" 
-          : "bg-white/80 backdrop-blur-sm border-b border-black/5"
-      }`}
-    >
-      <div className="container-site">
-        <div className="flex items-center justify-between h-16 md:h-20">
-          {/* Logo */}
-          <Link 
-            href="/" 
-            className="flex items-center gap-3 group"
-          >
-            <div className="h-12 md:h-16">
-              <Image 
-                src="/logo-farmaroi.png" 
-                alt="ฟาร์มอร่อย" 
-                width={100} 
-                height={100}
-                className="w-full h-full object-contain"
-              />
-            </div>
-            <div className="hidden sm:block">
-              <div className="font-bold text-lg md:text-xl text-brown group-hover:text-brand transition-colors">
-                ฟาร์มอร่อย
-              </div>
-              <div className="text-xs text-gray-500">กะเพรา • กาแฟ • คาเฟ่</div>
-            </div>
-          </Link>
-          
-          {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-1">
-            {[
-              { href: "/", label: "หน้าแรก", icon: "M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" },
-              { href: "/menu", label: "เมนู", icon: "M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" },
-              { href: "/promotions", label: "โปรโมชัน", icon: "M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" },
-              { href: "/news", label: "ข่าว", icon: "M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" },
-              { href: "/about", label: "เกี่ยวกับเรา", icon: "M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" },
-              { href: "/faq", label: "FAQ", icon: "M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" },
-              { href: "/locations", label: "ที่ตั้ง", icon: "M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z M15 11a3 3 0 11-6 0 3 3 0 016 0z" },
-            ].map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-brand hover:bg-brand/5 rounded-lg transition-all group"
-              >
-                <span className="flex items-center gap-2">
-                  <svg className="w-4 h-4 opacity-60 group-hover:opacity-100" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={item.icon} />
-                  </svg>
-                  {item.label}
-                </span>
-              </Link>
-            ))}
+    <>
+      <header 
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+          !isTransparent 
+            ? "py-3 bg-white/90 backdrop-blur-xl shadow-lg border-b border-white/20" 
+            : "py-5 bg-transparent"
+        }`}
+      >
+        <div className="container-site">
+          <div className="flex items-center justify-between">
+            {/* Logo */}
             <Link 
-              href="/contact" 
-              className="ml-2 btn btn-primary text-xs py-2 px-5"
-            >
-              ติดต่อ
-            </Link>
-          </nav>
-
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
-            onClick={() => setMobileOpen(!mobileOpen)}
-            aria-label="Toggle menu"
-          >
-            <svg className="w-6 h-6 text-brown" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              {mobileOpen ? (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              ) : (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              )}
-            </svg>
-          </button>
-        </div>
-      </div>
-
-      {/* Mobile Nav */}
-      {mobileOpen && (
-        <nav className="md:hidden border-t border-gray-100 bg-white shadow-lg animate-fade-in">
-          <div className="container-site py-4 space-y-1">
-            {[
-              { href: "/menu", label: "เมนู" },
-              { href: "/promotions", label: "โปรโมชัน" },
-              { href: "/news", label: "ข่าว" },
-              { href: "/about", label: "เกี่ยวกับเรา" },
-              { href: "/faq", label: "FAQ" },
-              { href: "/locations", label: "ที่ตั้ง" },
-            ].map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="block px-4 py-3 text-gray-700 hover:text-brand hover:bg-brand/5 rounded-lg transition-all font-medium"
-                onClick={() => setMobileOpen(false)}
-              >
-                {item.label}
-              </Link>
-            ))}
-            <Link
-              href="/contact"
-              className="block mt-4 btn btn-primary w-full text-center"
+              href="/" 
+              className="flex items-center gap-3 group relative z-50"
               onClick={() => setMobileOpen(false)}
             >
-              ติดต่อเรา
+              <div className={`relative transition-all duration-500 ${!isTransparent ? 'w-10 h-10' : 'w-12 h-12 md:w-14 md:h-14'}`}>
+                <Image 
+                  src="/logo-farmaroi.png" 
+                  alt="ฟาร์มอร่อย" 
+                  fill
+                  className="object-contain drop-shadow-md"
+                />
+              </div>
+              <div className={`flex flex-col transition-all duration-300 ${!isTransparent ? 'opacity-100' : 'opacity-100 text-white drop-shadow-md'}`}>
+                <span className={`font-bold leading-none tracking-tight transition-colors duration-300 ${!isTransparent ? 'text-xl text-brown' : 'text-xl md:text-2xl text-white'}`}>
+                  ฟาร์มอร่อย
+                </span>
+                <span className={`text-[10px] tracking-widest uppercase font-medium transition-colors duration-300 ${!isTransparent ? 'text-brand-orange' : 'text-white/90'}`}>
+                  Farm Aroi
+                </span>
+              </div>
             </Link>
+            
+
+            {/* Desktop Nav */}
+            <nav 
+              className={`hidden lg:flex items-center gap-1 p-1.5 rounded-full transition-all duration-500 ${
+                !isTransparent ? 'bg-gray-100/50 backdrop-blur-sm' : 'bg-black/20 backdrop-blur-md border border-white/10'
+              }`}
+              onMouseLeave={() => setHoveredPath(pathname)}
+            >
+              {navItems.map((item) => {
+                const isActive = item.href === hoveredPath;
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={`relative px-5 py-2 rounded-full text-sm font-medium transition-colors duration-300 ${
+                      isActive 
+                        ? (!isTransparent ? "text-brand" : "text-brand")
+                        : (!isTransparent ? "text-gray-600 hover:text-brand" : "text-white/90 hover:text-white")
+                    }`}
+                    onMouseEnter={() => setHoveredPath(item.href)}
+                  >
+                    {item.href === hoveredPath && (
+                      <motion.div
+                        layoutId="navbar-indicator"
+                        className={`absolute inset-0 rounded-full ${
+                          !isTransparent ? "bg-white shadow-sm" : "bg-white shadow-lg"
+                        }`}
+                        transition={{
+                          type: "spring",
+                          bounce: 0.2,
+                          duration: 0.6
+                        }}
+                      />
+                    )}
+                    <span className="relative z-10">{item.label}</span>
+                  </Link>
+                );
+              })}
+            </nav>
+
+            {/* Right Actions */}
+            <div className="hidden lg:flex items-center gap-3">
+              {isOpen && (
+                <div className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold backdrop-blur-md transition-all duration-300 ${
+                  !isTransparent ? 'bg-green-100 text-green-700' : 'bg-green-500/20 text-white border border-green-400/30'
+                }`}>
+                  <span className="w-2 h-2 rounded-full bg-green-50 animate-pulse"></span>
+                  OPEN
+                </div>
+              )}
+              
+              <Link 
+                href="/contact" 
+                className={`btn btn-sm rounded-full transition-all duration-300 ${
+                  !isTransparent 
+                    ? 'bg-brand text-white hover:bg-brand-light shadow-brand/20' 
+                    : 'bg-white text-brand hover:bg-gray-100 shadow-lg'
+                }`}
+              >
+                ติดต่อเรา
+              </Link>
+            </div>
+
+            {/* Mobile Menu Button */}
+            <button
+              className={`lg:hidden relative z-50 p-2 rounded-full transition-colors ${
+                !isTransparent ? 'text-brown hover:bg-gray-100' : 'text-white hover:bg-white/20'
+              }`}
+              onClick={() => setMobileOpen(!mobileOpen)}
+              aria-label="Toggle menu"
+            >
+              <div className="w-6 h-6 flex flex-col justify-center gap-1.5">
+                <span className={`w-full h-0.5 rounded-full transition-all duration-300 ${mobileOpen ? 'bg-brown rotate-45 translate-y-2' : 'bg-current'}`}></span>
+                <span className={`w-full h-0.5 rounded-full transition-all duration-300 ${mobileOpen ? 'opacity-0' : 'bg-current'}`}></span>
+                <span className={`w-full h-0.5 rounded-full transition-all duration-300 ${mobileOpen ? 'bg-brown -rotate-45 -translate-y-2' : 'bg-current'}`}></span>
+              </div>
+            </button>
           </div>
+        </div>
+      </header>
+
+      {/* Mobile Menu Overlay */}
+      <div 
+        className={`fixed inset-0 z-40 bg-white/95 backdrop-blur-xl transition-all duration-500 lg:hidden flex flex-col justify-center items-center ${
+          mobileOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+        }`}
+      >
+        {/* Background Pattern */}
+        <div className="absolute inset-0 bg-[url('/patterns/noise.png')] opacity-5 pointer-events-none"></div>
+        <div className="absolute top-0 right-0 w-64 h-64 bg-brand-orange/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+        <div className="absolute bottom-0 left-0 w-64 h-64 bg-brand-green/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
+
+        <nav className="relative z-10 flex flex-col items-center gap-6 w-full px-6">
+          {navItems.map((item, i) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={`text-2xl font-bold text-brown hover:text-brand-orange transition-all duration-300 transform ${
+                mobileOpen ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
+              }`}
+              style={{ transitionDelay: `${i * 50}ms` }}
+              onClick={() => setMobileOpen(false)}
+            >
+              {item.label}
+            </Link>
+          ))}
+          
+          <div 
+            className={`w-12 h-1 bg-gray-100 rounded-full my-4 transition-all duration-500 ${
+              mobileOpen ? 'scale-100 opacity-100' : 'scale-0 opacity-0'
+            }`} 
+            style={{ transitionDelay: '300ms' }}
+          ></div>
+
+          <Link
+            href="/contact"
+            className={`btn btn-primary btn-lg w-full max-w-xs shadow-xl transition-all duration-500 transform ${
+              mobileOpen ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
+            }`}
+            style={{ transitionDelay: '400ms' }}
+            onClick={() => setMobileOpen(false)}
+          >
+            ติดต่อเรา
+          </Link>
         </nav>
-      )}
-    </header>
+      </div>
+    </>
   );
 }

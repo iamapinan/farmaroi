@@ -6,61 +6,81 @@ export default async function AdminDashboardPage() {
   if (!session) redirect("/admin/login");
 
   return (
-    <main className="container-site py-10">
-        <h2 className="section-title mb-6">แดชบอร์ด</h2>
-
+    <div className="space-y-8">
+      {/* Quick Actions */}
+      <div>
+        <h3 className="text-lg font-semibold text-gray-800 mb-4">เมนูจัดการ</h3>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           <a
             href="/admin/menu"
-            className="bg-white border border-black/10 rounded-lg p-6 hover:shadow-lg transition-shadow"
+            className="group bg-white border border-gray-100 rounded-2xl p-6 hover:shadow-lg hover:border-brand/20 transition-all duration-300"
           >
-            <h3 className="font-bold text-lg text-brown">จัดการเมนู</h3>
-            <p className="text-sm text-foreground/70 mt-1">เพิ่ม แก้ไข ลบเมนูอาหาร</p>
+            <div className="w-12 h-12 bg-orange-50 rounded-xl flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
+              🍽️
+            </div>
+            <h3 className="font-bold text-lg text-gray-800 group-hover:text-brand transition-colors">จัดการเมนู</h3>
+            <p className="text-sm text-gray-500 mt-2">เพิ่ม แก้ไข หรือลบรายการอาหารในเมนู</p>
           </a>
 
           <a
             href="/admin/promotions"
-            className="bg-white border border-black/10 rounded-lg p-6 hover:shadow-lg transition-shadow"
+            className="group bg-white border border-gray-100 rounded-2xl p-6 hover:shadow-lg hover:border-brand/20 transition-all duration-300"
           >
-            <h3 className="font-bold text-lg text-brown">จัดการโปรโมชัน</h3>
-            <p className="text-sm text-foreground/70 mt-1">สร้างและแก้ไขโปรโมชัน</p>
+            <div className="w-12 h-12 bg-red-50 rounded-xl flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
+              🏷️
+            </div>
+            <h3 className="font-bold text-lg text-gray-800 group-hover:text-brand transition-colors">จัดการโปรโมชัน</h3>
+            <p className="text-sm text-gray-500 mt-2">สร้างแคมเปญและส่วนลดพิเศษ</p>
           </a>
 
           <a
             href="/admin/posts"
-            className="bg-white border border-black/10 rounded-lg p-6 hover:shadow-lg transition-shadow"
+            className="group bg-white border border-gray-100 rounded-2xl p-6 hover:shadow-lg hover:border-brand/20 transition-all duration-300"
           >
-            <h3 className="font-bold text-lg text-brown">จัดการข่าวสาร</h3>
-            <p className="text-sm text-foreground/70 mt-1">เขียนและเผยแพร่ข่าว</p>
+            <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
+              📰
+            </div>
+            <h3 className="font-bold text-lg text-gray-800 group-hover:text-brand transition-colors">จัดการข่าวสาร</h3>
+            <p className="text-sm text-gray-500 mt-2">อัปเดตข่าวสารและกิจกรรมของร้าน</p>
           </a>
 
           <a
             href="/admin/banners"
-            className="bg-white border border-black/10 rounded-lg p-6 hover:shadow-lg transition-shadow"
+            className="group bg-white border border-gray-100 rounded-2xl p-6 hover:shadow-lg hover:border-brand/20 transition-all duration-300"
           >
-            <h3 className="font-bold text-lg text-brown">จัดการแบนเนอร์</h3>
-            <p className="text-sm text-foreground/70 mt-1">อัปโหลดและจัดการแบนเนอร์</p>
+            <div className="w-12 h-12 bg-purple-50 rounded-xl flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
+              🖼️
+            </div>
+            <h3 className="font-bold text-lg text-gray-800 group-hover:text-brand transition-colors">จัดการแบนเนอร์</h3>
+            <p className="text-sm text-gray-500 mt-2">ปรับแต่งภาพสไลด์หน้าแรก</p>
           </a>
 
           <a
             href="/admin/locations"
-            className="bg-white border border-black/10 rounded-lg p-6 hover:shadow-lg transition-shadow"
+            className="group bg-white border border-gray-100 rounded-2xl p-6 hover:shadow-lg hover:border-brand/20 transition-all duration-300"
           >
-            <h3 className="font-bold text-lg text-brown">จัดการสาขา</h3>
-            <p className="text-sm text-foreground/70 mt-1">ข้อมูลสาขาและเวลาทำการ</p>
+            <div className="w-12 h-12 bg-green-50 rounded-xl flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
+              📍
+            </div>
+            <h3 className="font-bold text-lg text-gray-800 group-hover:text-brand transition-colors">จัดการสาขา</h3>
+            <p className="text-sm text-gray-500 mt-2">แก้ไขข้อมูลที่ตั้งและเวลาทำการ</p>
           </a>
 
           {session.user.role === "ADMIN" && (
             <a
               href="/admin/users"
-              className="bg-white border border-black/10 rounded-lg p-6 hover:shadow-lg transition-shadow"
+              className="group bg-white border border-gray-100 rounded-2xl p-6 hover:shadow-lg hover:border-brand/20 transition-all duration-300"
             >
-              <h3 className="font-bold text-lg text-brown">จัดการผู้ใช้</h3>
-              <p className="text-sm text-foreground/70 mt-1">เพิ่มและจัดการพนักงาน</p>
+              <div className="w-12 h-12 bg-gray-50 rounded-xl flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
+                👥
+              </div>
+              <h3 className="font-bold text-lg text-gray-800 group-hover:text-brand transition-colors">จัดการผู้ใช้</h3>
+              <p className="text-sm text-gray-500 mt-2">ดูแลสิทธิ์การเข้าถึงระบบ</p>
             </a>
           )}
         </div>
-      </main>
+      </div>
+    </div>
   );
 }
 

@@ -41,8 +41,11 @@ export default function AdminLocationsPage() {
     const openingHours: OpeningHour[] = [];
     for (let i = 0; i < 7; i++) {
       const isClosed = formData.get(`day${i}_closed`) === "on";
+      // Map UI index (0=Mon, 1=Tue...) to DB weekday (1=Mon, 2=Tue... 0=Sun)
+      const weekday = (i + 1) % 7;
+      
       openingHours.push({
-        weekday: i,
+        weekday,
         openTime: isClosed ? "00:00" : (formData.get(`day${i}_open`) as string),
         closeTime: isClosed ? "00:00" : (formData.get(`day${i}_close`) as string),
         isClosed,
@@ -96,12 +99,17 @@ export default function AdminLocationsPage() {
               {item.phone && <p className="text-sm text-foreground/70 mb-2">โทร: {item.phone}</p>}
               <div className="mt-4 text-xs">
                 <p className="font-medium mb-1">เวลาทำการ:</p>
-                {item.openingHours.map((hour) => (
-                  <div key={hour.weekday} className="flex justify-between">
-                    <span>{WEEKDAYS[hour.weekday]}</span>
-                    <span>{hour.isClosed ? "ปิดทำการ" : `${hour.openTime} - ${hour.closeTime}`}</span>
-                  </div>
-                ))}
+                {/* Display sorted by Mon (1) -> Sun (0) */}
+                {[1, 2, 3, 4, 5, 6, 0].map((dayCode) => {
+                  const hour = item.openingHours.find(h => h.weekday === dayCode);
+                  if (!hour) return null;
+                  return (
+                    <div key={dayCode} className="flex justify-between">
+                      <span>{WEEKDAYS[(dayCode + 6) % 7]}</span>
+                      <span>{hour.isClosed ? "ปิดทำการ" : `${hour.openTime} - ${hour.closeTime}`}</span>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           ))}
@@ -135,7 +143,9 @@ export default function AdminLocationsPage() {
                 <p className="text-sm font-medium mb-3">เวลาทำการ</p>
                 <div className="space-y-2">
                   {WEEKDAYS.map((day, idx) => {
-                    const hour = editingItem?.openingHours.find(h => h.weekday === idx);
+                    // Map UI index (0=Mon...) to DB weekday (1=Mon... 0=Sun)
+                    const dbWeekday = (idx + 1) % 7;
+                    const hour = editingItem?.openingHours.find(h => h.weekday === dbWeekday);
                     return (
                       <div key={idx} className="grid grid-cols-[120px_1fr_1fr_100px] gap-2 items-center">
                         <span className="text-sm">{day}</span>

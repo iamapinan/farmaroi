@@ -1,134 +1,119 @@
 import { getCategories, getMenuItems } from "@/services/menuService";
 import Image from "next/image";
-import type { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "เมนูอาหาร",
-  description: "เมนูอาหารและเครื่องดื่มครบครัน กะเพราสูตรเด็ด กาแฟหอมกรุ่น",
-};
+import Link from "next/link";
 
 export default async function MenuPage() {
   const categories = await getCategories();
-  const menuItems = await getMenuItems({ isActive: true });
+  const menuItems = await getMenuItems();
+
+  // Group items by category
+  const itemsByCategory = categories.map(category => ({
+    ...category,
+    items: menuItems.filter(item => item.categoryId === category.id)
+  })).filter(cat => cat.items.length > 0);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white via-gray-50 to-white">
-      {/* Hero Header */}
-      <section className="relative py-20 gradient-brand overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-10 right-10 w-64 h-64 bg-accent rounded-full blur-3xl"></div>
-          <div className="absolute bottom-10 left-10 w-80 h-80 bg-secondary rounded-full blur-3xl"></div>
+    <div className="min-h-screen bg-white pb-20">
+      {/* Hero Section */}
+      <section className="relative h-[50vh] min-h-[400px] flex items-center justify-center overflow-hidden bg-brown">
+        <div className="absolute inset-0">
+          <Image
+            src="https://images.unsplash.com/photo-1590846406792-0adc7f938f1d?w=1920&q=80"
+            alt="Menu Background"
+            fill
+            className="object-cover opacity-40"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-white/10"></div>
         </div>
         
         <div className="container-site relative z-10 text-center text-white">
-          <div className="inline-block mb-4 px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-sm font-medium">
-            อาหารและเครื่องดื่ม
+          <span className="inline-block px-4 py-1.5 rounded-full border border-white/30 bg-white/10 backdrop-blur-md text-sm font-medium tracking-wider uppercase mb-6 animate-fade-in">
+            Discover Our Flavors
+          </span>
+          <h1 className="text-display mb-6 drop-shadow-lg animate-slide-in">
+            เมนูอาหาร
+          </h1>
+          <p className="text-xl text-white/90 max-w-2xl mx-auto font-light leading-relaxed animate-fade-in delay-100">
+            คัดสรรวัตถุดิบที่ดีที่สุด ปรุงด้วยความใส่ใจ เพื่อรสชาติที่ลงตัว
+          </p>
+        </div>
+      </section>
+
+      {/* Sticky Category Nav */}
+      <div className="sticky top-[72px] z-30 bg-white/80 backdrop-blur-xl border-b border-gray-100 shadow-sm">
+        <div className="container-site overflow-x-auto no-scrollbar">
+          <div className="flex items-center gap-8 py-4 min-w-max">
+            {itemsByCategory.map((category) => (
+              <a
+                key={category.id}
+                href={`#category-${category.id}`}
+                className="text-gray-500 hover:text-brand font-medium transition-colors whitespace-nowrap text-sm uppercase tracking-wider"
+              >
+                {category.name}
+              </a>
+            ))}
           </div>
-          <h1 className="text-4xl md:text-6xl font-bold mb-4">เมนูอาหาร</h1>
-          <p className="text-xl text-white/90 max-w-2xl mx-auto">
-            เมนูแนะนำและเมนูยอดนิยมจากฟาร์มอร่อย ทำสดใหม่ทุกวัน
-          </p>
         </div>
-      </section>
+      </div>
 
-      {/* Menu Categories */}
-      <section className="container-site py-16">
-        {categories.map((cat, catIndex) => {
-          const items = menuItems.filter((m) => m.categoryId === cat.id);
-          if (items.length === 0) return null;
-
-          return (
-            <div key={cat.id} className="mb-20 animate-fade-in" style={{ animationDelay: `${catIndex * 0.1}s` }}>
-              {/* Category Header */}
-              <div className="mb-10">
-                <h2 className="section-title inline-block text-3xl">{cat.name}</h2>
-                <div className="mt-2 text-gray-600">
-                  {items.length} รายการ
-                </div>
+      {/* Menu Sections */}
+      <div className="container-site py-16 space-y-24">
+        {itemsByCategory.map((category, catIndex) => (
+          <section 
+            key={category.id} 
+            id={`category-${category.id}`}
+            className="scroll-mt-32"
+          >
+            <div className="flex items-end justify-between mb-12 border-b border-gray-100 pb-6">
+              <div>
+                <span className="text-brand-orange text-sm font-bold tracking-widest uppercase mb-2 block">
+                  0{catIndex + 1}
+                </span>
+                <h2 className="text-4xl font-bold text-brown">{category.name}</h2>
               </div>
-
-              {/* Menu Items Grid */}
-              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                {items.map((item, itemIndex) => (
-                  <div
-                    key={item.id}
-                    className="card card-hover group animate-scale-in"
-                    style={{ animationDelay: `${(catIndex * 0.1) + (itemIndex * 0.05)}s` }}
-                  >
-                    <div className="relative aspect-[4/3] w-full bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden">
-                      <Image
-                        src={item.image?.url || `https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=800&q=80`}
-                        alt={item.image?.alt || item.name}
-                        fill
-                        className="object-cover group-hover:scale-110 transition-transform duration-500"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                      
-                      {/* Badges */}
-                      <div className="absolute top-3 right-3 flex flex-col gap-2">
-                        {item.isSignature && (
-                          <span className="badge badge-signature shadow-lg">
-                            ⭐ ซิกเนเจอร์
-                          </span>
-                        )}
-                        {item.spicyLevel > 0 && (
-                          <span className="badge badge-spicy shadow-lg">
-                            🌶️ เผ็ด {item.spicyLevel}/5
-                          </span>
-                        )}
-                      </div>
-                    </div>
-                    
-                    <div className="p-5">
-                      <div className="flex items-start justify-between gap-3 mb-3">
-                        <h3 className="font-bold text-lg text-brown group-hover:text-brand transition-colors flex-1">
-                          {item.name}
-                        </h3>
-                        <span className="text-2xl font-bold text-brand whitespace-nowrap">
-                          ฿{item.price}
-                        </span>
-                      </div>
-                      
-                      {item.description && (
-                        <p className="text-sm text-gray-600 leading-relaxed line-clamp-2 mb-4">
-                          {item.description}
-                        </p>
-                      )}
-                      
-                      <div className="flex items-center gap-2 flex-wrap">
-                        <span className="text-xs text-gray-500 flex items-center">
-                          <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
-                          </svg>
-                          {cat.name}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
+              <p className="text-gray-500 hidden md:block max-w-md text-right">
+                {category.description || "เมนูคุณภาพที่เราคัดสรรมาเพื่อคุณ"}
+              </p>
             </div>
-          );
-        })}
-      </section>
 
-      {/* CTA Section */}
-      <section className="py-16 bg-gradient-to-r from-brand/5 via-accent/5 to-secondary/5">
-        <div className="container-site text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-brown mb-4">
-            ไม่พบเมนูที่ต้องการ?
-          </h2>
-          <p className="text-lg text-gray-600 mb-8">
-            ติดต่อเราเพื่อสอบถามเมนูพิเศษหรือคำแนะนำเพิ่มเติม
-          </p>
-          <a href="/contact" className="btn btn-primary text-base">
-            <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-            </svg>
-            ติดต่อเรา
-          </a>
-        </div>
-      </section>
+            <div className="grid md:grid-cols-2 gap-x-12 gap-y-16">
+              {category.items.map((item, index) => (
+                <div 
+                  key={item.id} 
+                  className="group flex gap-6 items-start"
+                >
+                  <div className="relative w-24 h-24 md:w-32 md:h-32 flex-shrink-0 rounded-2xl overflow-hidden bg-gray-100 shadow-md group-hover:shadow-xl transition-all duration-300">
+                    <Image
+                      src={item.image?.url || "https://images.unsplash.com/photo-1546069901-ba9599a7e63c"}
+                      alt={item.name}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                  </div>
+                  
+                  <div className="flex-1 pt-2">
+                    <div className="flex justify-between items-start mb-2">
+                      <h3 className="text-xl font-bold text-brown group-hover:text-brand transition-colors">
+                        {item.name}
+                      </h3>
+                    </div>
+                    <p className="text-gray-500 text-sm leading-relaxed mb-3 line-clamp-2">
+                      {item.description}
+                    </p>
+                    {item.spicyLevel > 0 && (
+                      <div className="flex gap-1">
+                        {[...Array(item.spicyLevel)].map((_, i) => (
+                          <span key={i} className="text-xs">🌶️</span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        ))}
+      </div>
     </div>
   );
 }

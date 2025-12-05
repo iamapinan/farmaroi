@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { resizeImage } from "@/lib/image-utils";
 
 interface ImageUploadProps {
   currentImage?: { id: string; url: string; alt?: string | null } | null;
@@ -18,8 +19,17 @@ export default function ImageUpload({ currentImage, onImageUploaded, folder = "u
     if (!file) return;
 
     setUploading(true);
+    
+    let fileToUpload = file;
+    try {
+      fileToUpload = await resizeImage(file);
+    } catch (error) {
+      console.error("Resize error:", error);
+      // Continue with original file if resize fails
+    }
+
     const formData = new FormData();
-    formData.append("file", file);
+    formData.append("file", fileToUpload);
     formData.append("folder", folder);
 
     try {

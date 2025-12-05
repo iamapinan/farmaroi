@@ -1,9 +1,7 @@
-import Image from "next/image";
-import Link from "next/link";
 import { getSignatureItems } from "@/services/menuService";
 import { getActivePromotions } from "@/services/promotionService";
-import { generateLocalBusinessJsonLd } from "@/lib/seo";
-import JsonLd from "@/components/JsonLd";
+import Image from "next/image";
+import Link from "next/link";
 import ParallaxBg from "@/components/ParallaxBg";
 
 export default async function Home() {
@@ -11,275 +9,261 @@ export default async function Home() {
   const promotions = await getActivePromotions();
 
   return (
-    <>
-      <JsonLd data={generateLocalBusinessJsonLd()} />
-      <div className="min-h-screen">
-        {/* Hero Section */}
-        <section className="relative min-h-[600px] md:min-h-[700px] flex items-center gradient-brand overflow-hidden">
-          <ParallaxBg 
-            imageUrl="https://images.unsplash.com/photo-1466637574441-749b8f19452f?w=1920&q=80" 
-            className="opacity-60"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-brand/80 via-brand/70 to-brown/80 z-0"></div>
-          <div className="absolute inset-0 opacity-10 z-0">
-            <div className="absolute top-20 left-10 w-72 h-72 bg-accent rounded-full blur-3xl"></div>
-            <div className="absolute bottom-20 right-10 w-96 h-96 bg-secondary rounded-full blur-3xl"></div>
+    <div className="flex flex-col min-h-screen">
+      {/* Hero Section */}
+      <section className="relative h-screen flex items-center justify-center overflow-hidden">
+        <ParallaxBg 
+          imageUrl="https://pub-a7f38d05664e425c94818a8f29c366b9.r2.dev/uploads/1764961359325-Image_5sg7245sg7245sg7.png" 
+          className="opacity-90"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-transparent z-10"></div>
+        <div className="absolute inset-0 bg-[url('/patterns/noise.png')] opacity-10 z-10 mix-blend-overlay"></div>
+        
+        <div className="container-site relative z-20 text-center text-white">
+          <div className="animate-fade-in space-y-6">
+            <span className="inline-block px-4 py-1.5 rounded-full border border-white/30 bg-white/10 backdrop-blur-md text-sm font-medium tracking-wider uppercase mb-4">
+              Welcome to Farm Aroi
+            </span>
+            <h1 className="text-display mb-6 drop-shadow-lg">
+              รสชาติไทยแท้ จัดจ้าน ถึงใจ<br />
+              <span className="text-brand-accent">จากวัตถุดิบคุณภาพ</span>
+            </h1>
+            <p className="text-xl md:text-2xl text-white/90 max-w-2xl mx-auto font-light leading-relaxed mb-10">
+              สัมผัสประสบการณ์อาหารไทยแท้ รสชาติที่จัดจ้าน ที่คัดสรรวัตถุดิบสดใหม่ ปรุงด้วยใจในบรรยากาศอบอุ่น ที่คุณจะลืมไม่ลง
+            </p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Link href="/menu" className="btn btn-primary btn-lg w-full sm:w-auto shadow-orange-500/20">
+                ดูเมนูอาหาร
+              </Link>
+              <Link href="/locations" className="btn btn-outline-white btn-lg w-full sm:w-auto">
+                ค้นหาสาขา
+              </Link>
+            </div>
           </div>
-          
-          <div className="container-site relative z-10">
-            <div className="grid md:grid-cols-2 gap-12 items-center">
-              <div className="text-white animate-slide-in">
-                <div className="inline-block mb-4 px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-sm font-medium">
-                  เปิดทุกวัน ยกเว้นวันอังคาร
-                </div>
-                <h1 className="text-5xl md:text-6xl font-bold leading-tight mb-6">
-                  ฟาร์มอร่อย
-                  <span className="block text-accent mt-2">กะเพรา • กาแฟ • คาเฟ่</span>
-                </h1>
-                <p className="text-xl md:text-2xl text-white/90 mb-8 leading-relaxed">
-                  บรรยากาศสไตล์ฟาร์มคาเฟ่ ใกล้ชิดธรรมชาติ เด่นเรื่องกะเพราสูตรเด็ดและกาแฟหอมคาราเมล
-                </p>
-                <div className="flex flex-wrap gap-4">
-                  <Link href="/menu" className="btn btn-primary text-base">
-                    <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                    </svg>
-                    ดูเมนู
-                  </Link>
-                  <Link href="/promotions" className="btn btn-outline bg-white/10 backdrop-blur-sm border-white text-white hover:bg-white hover:text-brown">
-                    <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" />
-                    </svg>
-                    โปรโมชัน
-                  </Link>
-                </div>
+        </div>
+
+        {/* Scroll Indicator */}
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 animate-bounce">
+          <div className="w-6 h-10 rounded-full border-2 border-white/50 flex justify-center p-1">
+            <div className="w-1 h-2 bg-white rounded-full animate-scroll"></div>
+          </div>
+        </div>
+      </section>
+
+      {/* Story Section */}
+      <section className="section bg-white relative overflow-hidden">
+        <div className="container-site">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div className="relative order-2 lg:order-1">
+              <div className="relative aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl transform rotate-2 hover:rotate-0 transition-all duration-500">
+                <Image
+                  src="https://pub-a7f38d05664e425c94818a8f29c366b9.r2.dev/uploads/1764960311867-Gemini_Generated_Image_mmhehqmmhehqmmhe.png"
+                  alt="Chef cooking"
+                  fill
+                  className="object-cover"
+                />
               </div>
+              <div className="absolute -bottom-10 -right-10 w-64 h-64 bg-brand-orange/10 rounded-full blur-3xl -z-10"></div>
+              <div className="absolute -top-10 -left-10 w-64 h-64 bg-brand-green/10 rounded-full blur-3xl -z-10"></div>
               
-              <div className="relative animate-scale-in">
-                <div className="relative aspect-square w-full max-w-lg mx-auto">
-                  <div className="absolute inset-0 bg-gradient-to-br from-accent/30 to-secondary/30 rounded-3xl rotate-6"></div>
-                  <div className="relative bg-white rounded-3xl shadow-2xl overflow-hidden -rotate-3 hover:rotate-0 transition-transform duration-500">
-                    <Image 
-                      src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&q=80" 
-                      alt="ฟาร์มอร่อย - อาหารสดใหม่" 
-                      fill 
-                      className="object-cover" 
-                      priority
-                    />
+              {/* Floating Badge */}
+              <div className="absolute top-10 -left-10 bg-white p-4 rounded-2xl shadow-xl animate-float hidden md:block">
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center text-2xl">🌿</div>
+                  <div>
+                    <div className="font-bold text-brown">วัตถุดิบสดใหม่</div>
+                    <div className="text-xs text-gray-500">ปรุงด้วยความรักจากหัวใจทุกวัน</div>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Features Section */}
-        <section className="py-20 bg-gradient-to-b from-white to-gray-50">
-          <div className="container-site">
-            <div className="text-center mb-16 animate-fade-in">
-              <h2 className="section-title inline-block">จุดเด่นของเรา</h2>
-              <p className="mt-6 text-lg text-gray-600 max-w-2xl mx-auto">
-                ความพิเศษที่ทำให้ฟาร์มอร่อยแตกต่าง
-              </p>
             </div>
             
-            <div className="grid md:grid-cols-3 gap-8">
-              {[
-                {
-                  icon: (
-                    <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                  ),
-                  title: "กะเพราสูตรเด็ด",
-                  desc: "หลากหลายสูตร รสจัดจ้าน กลมกล่อม หอมกลิ่นกะเพรา",
-                  color: "from-brand to-orange-600"
-                },
-                {
-                  icon: (
-                    <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-                    </svg>
-                  ),
-                  title: "กาแฟหอมคาราเมล",
-                  desc: "เข้มข้น กลิ่นคาราเมลชัด ดื่มแล้วสดชื่น อบอุ่น",
-                  color: "from-brown to-amber-800"
-                },
-                {
-                  icon: (
-                    <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                    </svg>
-                  ),
-                  title: "บรรยากาศฟาร์มคาเฟ่",
-                  desc: "ใกล้ชิดธรรมชาติ Pet-friendly มุมถ่ายรูปสวย",
-                  color: "from-secondary to-green-600"
-                }
-              ].map((feature, i) => (
-                <div key={i} className="card card-hover animate-fade-in group" style={{ animationDelay: `${i * 0.1}s` }}>
-                  <div className={`h-2 bg-gradient-to-r ${feature.color}`}></div>
-                  <div className="p-8">
-                    <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${feature.color} text-white flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
-                      {feature.icon}
+            <div className="order-1 lg:order-2 space-y-8">
+              <div>
+                <h2 className="section-title">กะเพราฟาร์มอร่อย</h2>
+                <p className="text-body-large text-gray-600">
+                  ความลับที่ทำให้ผัดกะเพราของร้านฟาร์มอร่อยนั้นแตกต่าง นอกจากซอสสูตรเฉพาะของร้าน ก็คือกะเพรา ซึ่งมีแหล่งที่มาจากพันธุ์กะเพรา จากจังหวัดกาญจนบุรี
+                </p>
+              </div>
+              
+              <div className="grid sm:grid-cols-2 gap-8">
+                <div className="space-y-3">
+                  <div className="w-12 h-12 bg-brand/5 rounded-xl flex items-center justify-center text-brand text-2xl mb-2">
+                    🌱
+                  </div>
+                  <h3 className="text-xl font-bold text-brown">Organic Farm</h3>
+                  <p className="text-gray-600">ผักสดจากฟาร์มอินทรีย์ของเราเอง ปลอดสารพิษ 100%</p>
+                </div>
+                <div className="space-y-3">
+                  <div className="w-12 h-12 bg-brand/5 rounded-xl flex items-center justify-center text-brand text-2xl mb-2">
+                    👨‍🍳
+                  </div>
+                  <h3 className="text-xl font-bold text-brown">Expert Chefs</h3>
+                  <p className="text-gray-600">ทีมเชฟมากประสบการณ์ที่ใส่ใจในทุกรายละเอียด</p>
+                </div>
+              </div>
+
+              <Link href="/about" className="btn btn-outline mt-4">
+                อ่านเพิ่มเติม
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Signature Menu (Bento Grid Style) */}
+      <section className="section-alt relative overflow-hidden">
+        {/* Decorative Background */}
+        <div className="absolute inset-0 bg-[url('/patterns/noise.png')] opacity-5 mix-blend-overlay pointer-events-none"></div>
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-brand-orange/5 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div className="container-site relative z-10">
+          <div className="text-center mb-20 relative">
+            <div className="flex items-center justify-center gap-4 mb-4">
+              <div className="h-px w-12 bg-brand-orange/50"></div>
+              <span className="text-brand-orange font-bold tracking-[0.2em] uppercase text-sm">Signature Menu</span>
+              <div className="h-px w-12 bg-brand-orange/50"></div>
+            </div>
+            
+            <h2 className="text-5xl md:text-6xl font-bold text-brown mb-6 relative inline-block">
+              <span className="relative z-10">เมนูแนะนำ</span>
+              <div className="absolute -bottom-2 left-0 w-full h-3 bg-brand-accent/20 -skew-x-12 -z-0"></div>
+            </h2>
+            
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto font-light leading-relaxed">
+              เมนูยอดนิยมที่ลูกค้าชื่นชอบ และเราอยากให้คุณได้ลอง
+              <br className="hidden md:block" />
+              <span className="text-base text-gray-500 mt-2 block">คัดสรรวัตถุดิบที่ดีที่สุด ปรุงด้วยใจในทุกจาน</span>
+            </p>
+
+            {/* Decorative Icon */}
+            <div className="absolute top-0 right-10 md:right-40 opacity-10 rotate-12 pointer-events-none">
+              <div className="text-9xl">🌿</div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[300px]">
+            {signatureItems.slice(0, 5).map((item, index) => (
+              <div 
+                key={item.id}
+                className={`group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer ${
+                  index === 0 ? 'md:col-span-2 md:row-span-2' : ''
+                } ${index === 3 ? 'md:col-span-2' : ''}`}
+              >
+                <Image
+                  src={item.image?.url || "https://images.unsplash.com/photo-1546069901-ba9599a7e63c"}
+                  alt={item.name}
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
+                
+                <div className="absolute bottom-0 left-0 p-6 md:p-8 w-full transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                  <div className="flex justify-between items-end">
+                    <div>
+                      <span className="inline-block px-3 py-1 bg-brand-orange text-white text-xs font-bold rounded-full mb-3">
+                        แนะนำ
+                      </span>
+                      <h3 className={`font-bold text-white mb-2 ${index === 0 ? 'text-3xl' : 'text-xl'}`}>
+                        {item.name}
+                      </h3>
+                      <p className="text-white/80 line-clamp-2 text-sm md:text-base max-w-md">
+                        {item.description}
+                      </p>
                     </div>
-                    <h3 className="text-xl font-bold text-brown mb-3">{feature.title}</h3>
-                    <p className="text-gray-600 leading-relaxed">{feature.desc}</p>
                   </div>
                 </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Signature Menu */}
-        {signatureItems.length > 0 && (
-          <section className="py-20 bg-white">
-            <div className="container-site">
-              <div className="text-center mb-16">
-                <h2 className="section-title inline-block">เมนูแนะนำ</h2>
-                <p className="mt-6 text-lg text-gray-600">เมนูซิกเนเจอร์ที่ห้ามพลาด</p>
               </div>
-              
-              <div className="grid md:grid-cols-3 gap-8">
-                {signatureItems.slice(0, 3).map((item: typeof signatureItems[number], i: number) => (
-                  <div key={item.id} className="card card-hover group animate-scale-in" style={{ animationDelay: `${i * 0.1}s` }}>
-                    <div className="relative aspect-[4/3] w-full bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden">
-                      <Image
-                        src={item.image?.url || `https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&q=80`}
-                        alt={item.image?.alt || item.name}
-                        fill
-                        className="object-cover group-hover:scale-110 transition-transform duration-500"
-                      />
-                      <div className="absolute top-4 right-4">
-                        <span className="badge badge-signature shadow-lg">
-                          ซิกเนเจอร์
-                        </span>
-                      </div>
-                    </div>
-                    <div className="p-6">
-                      <h3 className="text-xl font-bold text-brown mb-2 group-hover:text-brand transition-colors">{item.name}</h3>
-                      {item.description && (
-                        <p className="text-sm text-gray-600 mb-4 line-clamp-2">{item.description}</p>
-                      )}
-                      <div className="flex items-center justify-between">
-                        <span className="text-2xl font-bold text-brand">฿{item.price}</span>
-                        {item.spicyLevel > 0 && (
-                          <span className="badge badge-spicy">
-                            🌶️ เผ็ด {item.spicyLevel}/5
-                          </span>
-                        )}
-                      </div>
-                    </div>
+            ))}
+          </div>
+
+          <div className="text-center mt-12">
+            <Link href="/menu" className="btn btn-primary">
+              ดูเมนูทั้งหมด
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Promotions Section */}
+      <section className="section bg-brand text-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-[url('/patterns/noise.png')] opacity-10 mix-blend-overlay"></div>
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-white/5 rounded-full blur-3xl"></div>
+        
+        <div className="container-site relative z-10">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+            <div>
+              <h2 className="text-4xl md:text-5xl font-bold mb-4">โปรโมชันพิเศษ</h2>
+              <p className="text-white/80 text-lg max-w-xl">
+                ข้อเสนอสุดพิเศษสำหรับลูกค้าคนพิเศษของเรา ติดตามโปรโมชันใหม่ๆ ได้ที่นี่
+              </p>
+            </div>
+            <Link href="/promotions" className="btn btn-outline-white">
+              ดูโปรโมชันทั้งหมด
+            </Link>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {promotions.map((promo) => (
+              <Link 
+                href={`/promotions/${promo.slug}`} 
+                key={promo.id}
+                className="group bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl overflow-hidden hover:bg-white/10 transition-all duration-300"
+              >
+                <div className="relative aspect-video">
+                  <Image
+                    src={promo.image?.url || "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da"}
+                    alt={promo.title}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute top-4 right-4 bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">
+                    HOT DEAL
                   </div>
-                ))}
-              </div>
-              
-              <div className="mt-12 text-center">
-                <Link href="/menu" className="btn btn-primary text-base">
-                  ดูเมนูทั้งหมด
-                  <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </svg>
-                </Link>
-              </div>
-            </div>
-          </section>
-        )}
-
-        {/* Promotions */}
-        {promotions.length > 0 && (
-          <section className="py-20 bg-gradient-to-br from-accent/10 via-orange-50 to-secondary/10">
-            <div className="container-site">
-              <div className="text-center mb-16">
-                <h2 className="section-title inline-block">โปรโมชันพิเศษ</h2>
-                <p className="mt-6 text-lg text-gray-600">ข้อเสนอดีๆ สำหรับคุณ</p>
-              </div>
-              
-              <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-                {promotions.slice(0, 2).map((promo, i: number) => (
-                  <Link key={promo.id} href={`/promotions/${promo.slug}`} className="card card-hover group animate-fade-in" style={{ animationDelay: `${i * 0.1}s` }}>
-                    <div className="relative aspect-video w-full bg-gradient-to-br from-accent/20 to-orange-100 overflow-hidden">
-                      <Image
-                        src={promo.image?.url || `https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=1200&q=80`}
-                        alt={promo.image?.alt || promo.title}
-                        fill
-                        className="object-cover group-hover:scale-110 transition-transform duration-500"
-                      />
-                      <div className="gradient-overlay"></div>
-                      <div className="absolute top-4 left-4">
-                        <span className="badge badge-new shadow-lg">
-                          โปรโมชัน
-                        </span>
-                      </div>
-                    </div>
-                    <div className="p-6">
-                      <h3 className="text-2xl font-bold text-brown mb-3 group-hover:text-brand transition-colors">{promo.title}</h3>
-                      {promo.description && (
-                        <p className="text-gray-600 mb-4 line-clamp-3">{promo.description}</p>
-                      )}
-                      {(promo.startAt || promo.endAt) && (
-                        <div className="flex items-center text-sm text-gray-500 mb-3">
-                          <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                          </svg>
-                          {promo.startAt && `${new Date(promo.startAt).toLocaleDateString("th-TH")}`}
-                          {promo.startAt && promo.endAt && " - "}
-                          {promo.endAt && `${new Date(promo.endAt).toLocaleDateString("th-TH")}`}
-                        </div>
-                      )}
-                      <div className="flex items-center text-brand text-sm font-medium">
-                        ดูรายละเอียด
-                        <svg className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                        </svg>
-                      </div>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-              
-              <div className="mt-12 text-center">
-                <Link href="/promotions" className="btn btn-secondary text-base">
-                  ดูโปรโมชันทั้งหมด
-                  <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </svg>
-                </Link>
-              </div>
-            </div>
-          </section>
-        )}
-
-        {/* CTA Section */}
-        <section className="py-20 border-brown-200 border-t-2 relative overflow-hidden">
-          <div className="absolute inset-0 opacity-10">
-            <div className="absolute top-0 left-1/4 w-96 h-96 bg-accent rounded-full blur-3xl"></div>
-            <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-secondary rounded-full blur-3xl"></div>
-          </div>
-          
-          <div className="container-site relative z-10 text-center text-white">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">พร้อมที่จะมาเที่ยว และหาของอร่อยทานแล้วหรือยัง?</h2>
-            <p className="text-xl md:text-2xl text-white/90 mb-10 max-w-2xl mx-auto">
-              มาพบกับประสบการณ์รสชาติใหม่ที่ฟาร์มอร่อย เปิดทุกวันเว้นวันอังคาร 10:00-20:00 น.
-            </p>
-            <div className="flex flex-wrap gap-4 justify-center">
-              <Link href="/locations" className="btn btn-primary bg-white text-brown hover:bg-white/90">
-                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-                ดูที่ตั้งร้าน
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold mb-2 group-hover:text-brand-accent transition-colors">
+                    {promo.title}
+                  </h3>
+                  <p className="text-white/70 text-sm line-clamp-2 mb-4">
+                    {promo.description}
+                  </p>
+                  <span className="text-sm font-medium text-brand-accent flex items-center gap-2">
+                    อ่านรายละเอียด
+                    <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </span>
+                </div>
               </Link>
-              <Link href="/contact" className="btn btn-outline bg-white/10 backdrop-blur-sm border-white text-white hover:bg-white hover:text-brown">
-                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
-                ติดต่อเรา
-              </Link>
-            </div>
+            ))}
           </div>
-        </section>
-      </div>
-    </>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-24 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-900 to-black z-0"></div>
+        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1920&q=80')] opacity-20 bg-cover bg-center mix-blend-overlay z-0"></div>
+        
+        <div className="container-narrow relative z-10 text-center">
+          <h2 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
+            พร้อมสัมผัสความอร่อย<br />
+            <span className="text-brand-orange">ในบรรยากาศสุดพิเศษ?</span>
+          </h2>
+          <p className="text-xl text-gray-300 mb-10 max-w-2xl mx-auto">
+            สำรองที่นั่งล่วงหน้าเพื่อประสบการณ์ที่ดีที่สุด หรือสั่งอาหารกลับบ้านได้ง่ายๆ
+          </p>
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <Link href="/contact" className="btn btn-primary btn-lg shadow-orange-500/20">
+              จองโต๊ะทันที
+            </Link>
+            <Link href="/menu" className="btn btn-outline-white btn-lg">
+              ดูเมนูอาหาร
+            </Link>
+          </div>
+        </div>
+      </section>
+    </div>
   );
 }

@@ -5,7 +5,32 @@ import { sendContactEmail } from '@/lib/email';
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { name, email, phone, message } = body;
+    const { name, email, phone, message, turnstileToken } = body;
+
+    // Cloudflare Turnstile Verification
+    if (!turnstileToken) {
+      return NextResponse.json(
+        { error: 'กรุณายืนยันตัวตน (Turnstile)' },
+        { status: 400 }
+      );
+    }
+
+    const verifyRes = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        secret: "0x4AAAAAACE_yRdPpY2gV-RyzCH-KkD1hmk",
+        response: turnstileToken,
+      }),
+    });
+
+    const verifyData = await verifyRes.json();
+    if (!verifyData.success) {
+      return NextResponse.json(
+        { error: 'การยืนยันตัวตนล้มเหลว กรุณาลองใหม่' },
+        { status: 400 }
+      );
+    }
 
     if (!name || !email || !message) {
       return NextResponse.json(

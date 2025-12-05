@@ -28,6 +28,10 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
 };
 
+import Providers from "@/components/Providers";
+
+// ... (imports)
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -36,10 +40,12 @@ export default function RootLayout({
   return (
     <html lang="th" suppressHydrationWarning>
       <body className={`${notoThai.variable} font-sans antialiased`} suppressHydrationWarning>
-        <Analytics />
-        <Navbar />
-        {children}
-        <Footer />
+        <Providers>
+          <Analytics />
+          <Navbar />
+          {children}
+          <Footer />
+        </Providers>
       </body>
     </html>
   );
