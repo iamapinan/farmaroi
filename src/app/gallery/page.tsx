@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { prisma } from "@/lib/prisma";
 import GalleryGrid from "@/components/GalleryGrid";
+import { getGalleryItems } from "@/services/galleryService";
 
 export const metadata: Metadata = {
   title: "แกลเลอรี | ฟาร์มอร่อย",
@@ -12,11 +12,7 @@ export const metadata: Metadata = {
 export const revalidate = 3600;
 
 export default async function GalleryPage() {
-  const galleryItems = await prisma.gallery.findMany({
-    where: { isActive: true },
-    include: { image: true },
-    orderBy: { sortOrder: "asc" },
-  });
+  const galleryItems = await getGalleryItems();
 
   return (
     <div className="min-h-screen bg-gray-50">
