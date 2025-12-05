@@ -19,7 +19,6 @@ export default function GalleryAdminPage() {
   const [items, setItems] = useState<GalleryItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(false);
-  const [showAddModal, setShowAddModal] = useState(false);
 
   useEffect(() => {
     fetchItems();
@@ -80,7 +79,6 @@ export default function GalleryAdminPage() {
       if (!galleryRes.ok) throw new Error("Failed to add to gallery");
 
       await fetchItems();
-      setShowAddModal(false);
     } catch (error) {
       console.error("Error:", error);
       alert("เกิดข้อผิดพลาดในการเพิ่มรูปภาพ");

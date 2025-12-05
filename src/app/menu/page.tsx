@@ -1,6 +1,6 @@
 import { getCategories, getMenuItems } from "@/services/menuService";
 import Image from "next/image";
-import Link from "next/link";
+
 
 export default async function MenuPage() {
   const categories = await getCategories();
@@ -72,12 +72,12 @@ export default async function MenuPage() {
                 <h2 className="text-4xl font-bold text-brown">{category.name}</h2>
               </div>
               <p className="text-gray-500 hidden md:block max-w-md text-right">
-                {category.description || "เมนูคุณภาพที่เราคัดสรรมาเพื่อคุณ"}
+                เมนูคุณภาพที่เราคัดสรรมาเพื่อคุณ
               </p>
             </div>
 
             <div className="grid md:grid-cols-2 gap-x-12 gap-y-16">
-              {category.items.map((item, index) => (
+              {category.items.map((item) => (
                 <div 
                   key={item.id} 
                   className="group flex gap-6 items-start"

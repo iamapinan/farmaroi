@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+
 import type { NextAuthConfig } from "next-auth";
 
 export const authConfig = {

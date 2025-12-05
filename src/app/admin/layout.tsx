@@ -1,5 +1,6 @@
 import { auth, signOut } from "@/lib/auth";
 import Link from "next/link";
+import Image from "next/image";
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   const session = await auth();
@@ -32,7 +33,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
         <div className="h-16 flex items-center px-6 border-b border-gray-100">
           <Link href="/admin/dashboard" className="flex items-center gap-2">
             <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center text-white font-bold">
-              <img src="/icon.png" alt="Farmaroi Logo" className="w-6 h-6" />
+              <Image src="/icon.png" alt="Farmaroi Logo" width={24} height={24} className="w-6 h-6" />
             </div>
             <span className="font-bold text-brown text-lg">Farm Admin</span>
           </Link>

@@ -45,7 +45,7 @@ export default function AboutPage() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
               <div className="absolute bottom-6 left-6 right-6 text-white">
-                <p className="font-medium text-lg">"ความสุขเริ่มต้นที่จานโปรด"</p>
+                <p className="font-medium text-lg">&quot;ความสุขเริ่มต้นที่จานโปรด&quot;</p>
               </div>
             </div>
             {/* Floating Badge */}
@@ -67,7 +67,7 @@ export default function AboutPage() {
                 สาขาแรกของเราตั้งอยู่ที่ตำบลตะเคียนเตี้ย อำเภอบางละมุง จังหวัดชลบุรี รายล้อมด้วยธรรมชาติที่ร่มรื่น เหมาะสำหรับทุกคนในครอบครัว ไม่ว่าจะเป็นสายกินที่ชอบรสชาติจัดจ้าน หรือสายชิลที่อยากมานั่งจิบกาแฟหอมๆ ที่เข้มข้นตั้งแต่เอาเข้าปากจนกลืนลงคอยังคงได้รสชาติที่เข้มข้นไม่จางลง
               </p>
               <div className="pl-6 border-l-4 border-brand/30 italic text-gray-500">
-                "เราใส่ใจในทุกรายละเอียด ตั้งแต่การคัดเลือกวัตถุดิบ ไปจนถึงการปรุงรส เพื่อให้ได้รสชาติที่เป็นเอกลักษณ์ของฟาร์มอร่อย"
+                &quot;เราใส่ใจในทุกรายละเอียด ตั้งแต่การคัดเลือกวัตถุดิบ ไปจนถึงการปรุงรส เพื่อให้ได้รสชาติที่เป็นเอกลักษณ์ของฟาร์มอร่อย&quot;
               </div>
             </div>
           </div>
