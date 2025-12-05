@@ -9,7 +9,12 @@ export const metadata: Metadata = {
 const weekdayNames = ["อาทิตย์", "จันทร์", "อังคาร", "พุธ", "พฤหัสบดี", "ศุกร์", "เสาร์"];
 
 export default async function LocationsPage() {
-  const locations = await getLocations();
+  let locations = [];
+  try {
+    locations = await getLocations() || [];
+  } catch (error) {
+    console.error("Locations page: Failed to fetch locations", error);
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">

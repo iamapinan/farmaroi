@@ -5,8 +5,20 @@ import Link from "next/link";
 import ParallaxBg from "@/components/ParallaxBg";
 
 export default async function Home() {
-  const signatureItems = await getSignatureItems();
-  const promotions = await getActivePromotions();
+  let signatureItems = [];
+  let promotions = [];
+
+  try {
+    signatureItems = await getSignatureItems() || [];
+  } catch (error) {
+    console.error("Home page: Failed to fetch signature items", error);
+  }
+
+  try {
+    promotions = await getActivePromotions() || [];
+  } catch (error) {
+    console.error("Home page: Failed to fetch promotions", error);
+  }
 
   return (
     <div className="flex flex-col min-h-screen">
