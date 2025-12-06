@@ -25,12 +25,17 @@
     "framer-motion": "^12.23.25",
     "googleapis": "^162.0.0",
     "next": "^16.0.7",
-    "next-auth": "^5.0.0-beta.29",
-    "nodemailer": "^6.10.1",
+    "next-auth": "^5.0.0-beta.30",
+    "nodemailer": "^7.0.11",
     "prisma": "^6.17.1",
     "react": "^19.2.1",
     "react-dom": "^19.2.1",
     "react-turnstile": "^1.1.4"
+  },
+  "overrides": {
+    "next-auth": {
+      "next": "$next"
+    }
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
