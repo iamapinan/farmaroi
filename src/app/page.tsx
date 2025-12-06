@@ -5,8 +5,11 @@ import Link from "next/link";
 import ParallaxBg from "@/components/ParallaxBg";
 
 export default async function Home() {
-  let signatureItems = [];
-  let promotions = [];
+  type SignatureItems = Awaited<ReturnType<typeof getSignatureItems>>;
+  type Promotions = Awaited<ReturnType<typeof getActivePromotions>>;
+
+  let signatureItems: SignatureItems = [];
+  let promotions: Promotions = [];
 
   try {
     signatureItems = await getSignatureItems() || [];

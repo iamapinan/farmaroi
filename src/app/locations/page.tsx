@@ -9,7 +9,8 @@ export const metadata: Metadata = {
 const weekdayNames = ["อาทิตย์", "จันทร์", "อังคาร", "พุธ", "พฤหัสบดี", "ศุกร์", "เสาร์"];
 
 export default async function LocationsPage() {
-  let locations = [];
+  type Locations = Awaited<ReturnType<typeof getLocations>>;
+  let locations: Locations = [];
   try {
     locations = await getLocations() || [];
   } catch (error) {
