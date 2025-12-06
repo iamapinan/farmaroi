@@ -9,7 +9,13 @@ export const metadata: Metadata = {
 };
 
 export default async function PromotionsPage() {
-  const promotions = await getActivePromotions();
+  type Promotions = Awaited<ReturnType<typeof getActivePromotions>>;
+  let promotions: Promotions = [];
+  try {
+    promotions = await getActivePromotions() || [];
+  } catch (error) {
+    console.warn("Promotions page: Failed to fetch promotions", error);
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">

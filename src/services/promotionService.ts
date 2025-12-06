@@ -17,7 +17,7 @@ export async function getActivePromotions() {
       orderBy: { createdAt: "desc" },
     });
   } catch (error) {
-    console.error("Failed to fetch active promotions:", error);
+    console.warn("Failed to fetch active promotions (returning empty list):", error);
     return [];
   }
 }
