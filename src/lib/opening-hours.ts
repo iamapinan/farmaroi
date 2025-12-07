@@ -19,7 +19,11 @@ export const defaultOpeningRules: OpeningRule[] = [
 ];
 
 export function isOpenNow(rules: OpeningRule[] = defaultOpeningRules, d = new Date()): boolean {
-  const weekday = (d.getDay() as Weekday);
+  // Convert input date to Thailand time (Asia/Bangkok)
+  // relying on the fact that Date constructor parses en-US format correctly in Node/Browsers
+  const thDate = new Date(d.toLocaleString("en-US", { timeZone: "Asia/Bangkok" }));
+  
+  const weekday = (thDate.getDay() as Weekday);
   const rule = rules.find(r => r.weekday === weekday);
   if (!rule) return false;
   if (rule.closed) return false;
@@ -27,12 +31,15 @@ export function isOpenNow(rules: OpeningRule[] = defaultOpeningRules, d = new Da
   const [ch, cm] = rule.close.split(":").map(Number);
   const openMin = oh * 60 + om;
   const closeMin = ch * 60 + cm;
-  const nowMin = d.getHours() * 60 + d.getMinutes();
+  // Use the shifted thDate hours/minutes
+  const nowMin = thDate.getHours() * 60 + thDate.getMinutes();
   return nowMin >= openMin && nowMin <= closeMin;
 }
 
 export function humanOpeningToday(rules: OpeningRule[] = defaultOpeningRules, d = new Date()): string {
-  const weekday = (d.getDay() as Weekday);
+  // Convert to Thailand time
+  const thDate = new Date(d.toLocaleString("en-US", { timeZone: "Asia/Bangkok" }));
+  const weekday = (thDate.getDay() as Weekday);
   const rule = rules.find(r => r.weekday === weekday);
   if (!rule) return "-";
   if (rule.closed) return "ปิดวันนี้ (อังคาร)";
