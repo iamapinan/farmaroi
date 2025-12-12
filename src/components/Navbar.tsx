@@ -6,11 +6,14 @@ import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 
+import { isOpenNow } from "@/lib/opening-hours";
+
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
   const [hoveredPath, setHoveredPath] = useState<string | null>(pathname);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     setHoveredPath(pathname);
@@ -21,11 +24,12 @@ export default function Navbar() {
       setScrolled(window.scrollY > 20);
     };
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    
+    // Check opening status on mount to avoid hydration mismatch
+    setIsOpen(isOpenNow());
 
-  // Check if currently open (mock - you can connect to real logic)
-  const isOpen = true; 
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []); 
   
   // Determine if navbar should be transparent (only on home page and not scrolled)
   const isTransparent = pathname === "/" && !scrolled;
