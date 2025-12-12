@@ -125,7 +125,7 @@ export default function Navbar() {
                 <div className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold backdrop-blur-md transition-all duration-300 ${
                   !isTransparent ? 'bg-green-100 text-green-700' : 'bg-green-500/20 text-white border border-green-400/30'
                 }`}>
-                  <span className="w-2 h-2 rounded-full bg-green-50 animate-pulse"></span>
+                  <span className="w-2 h-2 rounded-full bg-brown animate-pulse"></span>
                   OPEN
                 </div>
               )}

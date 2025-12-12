@@ -1,6 +1,8 @@
 import { getLocations } from "@/services/locationService";
 import type { Metadata } from "next";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "ที่ตั้งร้าน | ฟาร์มอร่อย กะเพรา กาแฟ คาเฟ่",
   description: "ค้นหาสาขาฟาร์มอร่อยใกล้คุณ ดูแผนที่ เวลาทำการ และเบอร์โทรศัพท์",
