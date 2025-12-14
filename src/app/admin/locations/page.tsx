@@ -95,8 +95,8 @@ export default function AdminLocationsPage() {
                   <button onClick={() => handleDelete(item.id)} className="text-red-600 hover:underline text-sm">ลบ</button>
                 </div>
               </div>
-              <p className="text-sm text-foreground/70 mb-2">{item.address}</p>
-              {item.phone && <p className="text-sm text-foreground/70 mb-2">โทร: {item.phone}</p>}
+              <p className="text-sm mb-2">{item.address}</p>
+              {item.phone && <p className="text-sm mb-2">โทร: {item.phone}</p>}
               <div className="mt-4 text-xs">
                 <p className="font-medium mb-1">เวลาทำการ:</p>
                 {/* Display sorted by Mon (1) -> Sun (0) */}

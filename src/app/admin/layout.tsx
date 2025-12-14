@@ -100,7 +100,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
           </Link>
         </header>
         
-        <main className="p-6 flex-1">
+        <main className="p-6 flex-1  text-gray-800">
           {children}
         </main>
       </div>
