@@ -25,18 +25,51 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: stri
     if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
     const { id } = await params;
-    const { openingHours, ...data } = await req.json();
+    const { openingHours, logoId, gallery, ...data } = await req.json();
     
-    await prisma.openingHour.deleteMany({ where: { locationId: id } });
-    
-    const location = await prisma.location.update({
-      where: { id },
-      data: {
-        ...data,
-        openingHours: openingHours ? { create: openingHours } : undefined,
-      },
-      include: { openingHours: true },
+    // Transaction to update everything
+    const location = await prisma.$transaction(async (tx) => {
+      // 1. Update basic info and logo
+      await tx.location.update({
+        where: { id },
+        data: { ...data, logoId },
+      });
+
+      // 2. Update opening hours if provided
+      if (openingHours) {
+        await tx.openingHour.deleteMany({ where: { locationId: id } });
+        await tx.openingHour.createMany({
+          data: openingHours.map((h: any) => ({ ...h, locationId: id })),
+        });
+      }
+
+      // 3. Update gallery if provided
+      if (gallery) {
+        await tx.locationGallery.deleteMany({ where: { locationId: id } });
+        if (gallery.length > 0) {
+          await tx.locationGallery.createMany({
+            data: gallery.map((item: any, index: number) => ({
+              locationId: id,
+              imageId: item.imageId,
+              sortOrder: index,
+            })),
+          });
+        }
+      }
+
+      return tx.location.findUnique({
+        where: { id },
+        include: { 
+          openingHours: { orderBy: { weekday: "asc" } },
+          logo: true,
+          gallery: { 
+            include: { image: true }, 
+            orderBy: { sortOrder: "asc" } 
+          }
+        },
+      });
     });
+    return NextResponse.json(location);
     return NextResponse.json(location);
   } catch {
     return NextResponse.json({ error: "Failed to update location" }, { status: 500 });

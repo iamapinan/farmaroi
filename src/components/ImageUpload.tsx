@@ -7,10 +7,11 @@ import { resizeImage } from "@/lib/image-utils";
 interface ImageUploadProps {
   currentImage?: { id: string; url: string; alt?: string | null } | null;
   onImageUploaded: (mediaId: string) => void;
+  onUploadComplete?: (media: { id: string; url: string }) => void;
   folder?: string;
 }
 
-export default function ImageUpload({ currentImage, onImageUploaded, folder = "uploads" }: ImageUploadProps) {
+export default function ImageUpload({ currentImage, onImageUploaded, onUploadComplete, folder = "uploads" }: ImageUploadProps) {
   const [uploading, setUploading] = useState(false);
   const [preview, setPreview] = useState<string | null>(currentImage?.url || null);
 
@@ -42,6 +43,7 @@ export default function ImageUpload({ currentImage, onImageUploaded, folder = "u
         const media = await res.json();
         setPreview(media.url);
         onImageUploaded(media.id);
+        onUploadComplete?.({ id: media.id, url: media.url });
       } else {
         alert("อัพโหลดรูปภาพล้มเหลว");
       }

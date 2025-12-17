@@ -8,7 +8,10 @@ export async function GET() {
     if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
     const locations = await prisma.location.findMany({
-      include: { openingHours: { orderBy: { weekday: "asc" } } },
+      include: { 
+        openingHours: { orderBy: { weekday: "asc" } },
+        logo: true,
+      },
       orderBy: { createdAt: "desc" },
     });
     return NextResponse.json(locations);
@@ -22,13 +25,20 @@ export async function POST(req: Request) {
     const session = await auth();
     if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-    const { openingHours, ...data } = await req.json();
+    const { openingHours, logoId, gallery, ...data } = await req.json();
     const location = await prisma.location.create({
       data: {
         ...data,
+        logoId,
         openingHours: openingHours ? { create: openingHours } : undefined,
+        gallery: gallery ? { 
+          create: gallery.map((item: any, index: number) => ({
+            imageId: item.imageId,
+            sortOrder: index,
+          })) 
+        } : undefined,
       },
-      include: { openingHours: true },
+      include: { openingHours: true, logo: true, gallery: { include: { image: true } } },
     });
     return NextResponse.json(location, { status: 201 });
   } catch {

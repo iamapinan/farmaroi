@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import ImageUpload from "@/components/ImageUpload";
+import Image from "next/image";
 
 interface OpeningHour {
   weekday: number;
@@ -16,6 +18,31 @@ interface Location {
   phone?: string;
   mapUrl?: string;
   openingHours: OpeningHour[];
+  isClosed: boolean;
+}
+
+interface Media {
+  id: string;
+  url: string;
+}
+
+interface LocationGallery {
+  id: string;
+  imageId: string;
+  sortOrder: number;
+  image: Media;
+}
+
+interface Location {
+  id: string;
+  name: string;
+  address: string;
+  phone?: string;
+  mapUrl?: string;
+  openingHours: OpeningHour[];
+  logo?: Media | null;
+  gallery: LocationGallery[];
+  logoId?: string | null;
 }
 
 const WEEKDAYS = ["จันทร์", "อังคาร", "พุธ", "พฤหัสบดี", "ศุกร์", "เสาร์", "อาทิตย์"];
@@ -25,6 +52,20 @@ export default function AdminLocationsPage() {
   const [showModal, setShowModal] = useState(false);
   const [editingItem, setEditingItem] = useState<Location | null>(null);
   const [loading, setLoading] = useState(false);
+  
+  // Form State
+  const [logoId, setLogoId] = useState<string>("");
+  const [galleryItems, setGalleryItems] = useState<{ imageId: string; url: string }[]>([]);
+
+  useEffect(() => {
+    if (editingItem) {
+      setLogoId(editingItem.logo?.id || editingItem.logoId || "");
+      setGalleryItems(editingItem.gallery.map(g => ({ imageId: g.imageId, url: g.image.url })));
+    } else {
+      setLogoId("");
+      setGalleryItems([]);
+    }
+  }, [editingItem]);
 
   useEffect(() => { fetchItems(); }, []);
 
@@ -58,6 +99,11 @@ export default function AdminLocationsPage() {
       phone: formData.get("phone") as string,
       mapUrl: formData.get("mapUrl") as string,
       openingHours,
+      logoId: logoId || null,
+      gallery: galleryItems.map((item, index) => ({
+        imageId: item.imageId,
+        sortOrder: index,
+      })),
     };
 
     const url = editingItem ? `/api/admin/locations/${editingItem.id}` : "/api/admin/locations";
@@ -128,7 +174,7 @@ export default function AdminLocationsPage() {
                 <label className="block text-sm font-medium mb-1">ที่อยู่</label>
                 <textarea name="address" defaultValue={editingItem?.address} rows={2} required className="w-full px-3 py-2 border border-black/10 rounded-lg"></textarea>
               </div>
-              <div className="grid grid-cols-2 gap-4">
+               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium mb-1">เบอร์โทร</label>
                   <input type="text" name="phone" defaultValue={editingItem?.phone} className="w-full px-3 py-2 border border-black/10 rounded-lg" />
@@ -137,6 +183,46 @@ export default function AdminLocationsPage() {
                   <label className="block text-sm font-medium mb-1">ลิงก์แผนที่</label>
                   <input type="text" name="mapUrl" defaultValue={editingItem?.mapUrl} className="w-full px-3 py-2 border border-black/10 rounded-lg" />
                 </div>
+              </div>
+
+              {/* Logo Section */}
+              <div className="border-t border-black/10 pt-4">
+                <p className="text-sm font-medium mb-2">โลโก้สาขา</p>
+                <ImageUpload
+                  folder="locations"
+                  currentImage={editingItem?.logo || null}
+                  onImageUploaded={(id) => setLogoId(id)}
+                />
+              </div>
+
+              {/* Gallery Section */}
+              <div className="border-t border-black/10 pt-4">
+                <p className="text-sm font-medium mb-2">แกลเลอรีรูปภาพ</p>
+                <div className="grid grid-cols-3 gap-3 mb-3">
+                  {galleryItems.map((item, idx) => (
+                    <div key={item.imageId} className="relative aspect-square bg-gray-100 rounded-lg overflow-hidden group">
+                      <Image src={item.url} alt="Gallery" fill className="object-cover" />
+                      <button
+                        type="button"
+                        onClick={() => setGalleryItems(items => items.filter((_, i) => i !== idx))}
+                        className="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                      >
+                        <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                      </button>
+                    </div>
+                  ))}
+                </div>
+                <ImageUpload
+                  key={galleryItems.length} // Force reset after upload
+                  folder="locations/gallery"
+                  currentImage={null}
+                  onImageUploaded={() => {}} // Not used
+                  onUploadComplete={(media) => {
+                    setGalleryItems(prev => [...prev, { imageId: media.id, url: media.url }]);
+                  }}
+                />
               </div>
               
               <div className="border-t border-black/10 pt-4">

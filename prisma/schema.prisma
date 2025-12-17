@@ -47,6 +47,8 @@ model Media {
   posts      Post[]
   banners    Banner[]
   galleryItems Gallery[]
+  locationLogos Location[]
+  locationGalleries LocationGallery[]
 }
 
 model Gallery {
@@ -167,6 +169,23 @@ model Location {
   updatedAt DateTime @updatedAt
 
   openingHours OpeningHour[]
+  
+  logoId    String?
+  logo      Media?           @relation(fields: [logoId], references: [id], onDelete: SetNull)
+  gallery   LocationGallery[]
+}
+
+model LocationGallery {
+  id         String   @id @default(cuid())
+  locationId String
+  imageId    String
+  sortOrder  Int      @default(0)
+  createdAt  DateTime @default(now())
+
+  location Location @relation(fields: [locationId], references: [id], onDelete: Cascade)
+  image    Media    @relation(fields: [imageId], references: [id], onDelete: Cascade)
+
+  @@index([locationId])
 }
 
 model OpeningHour {
