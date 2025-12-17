@@ -26,17 +26,46 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: stri
     if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
     const { id } = await params;
-    const data = await req.json();
-    const item = await prisma.menuItem.update({
-      where: { id },
-      data,
+    const { locations, ...data } = await req.json();
+
+    const item = await prisma.$transaction(async (tx) => {
+      // 1. Update basic info
+      await tx.menuItem.update({
+        where: { id },
+        data,
+      });
+
+      // 2. Update locations if provided
+      if (locations) {
+        await tx.menuLocation.deleteMany({ where: { menuItemId: id } });
+        if (locations.length > 0) {
+          await tx.menuLocation.createMany({
+            data: locations.map((loc: any) => ({
+              menuItemId: id,
+              locationId: loc.locationId,
+              price: loc.price || null,
+              isAvailable: loc.isAvailable ?? true
+            })),
+          });
+        }
+      }
+
+      return tx.menuItem.findUnique({
+        where: { id },
+        include: { 
+          category: true, 
+          image: true,
+          menuItems: { include: { location: true } }
+        },
+      });
     });
     
     revalidatePath("/");
     revalidatePath("/menu");
     
     return NextResponse.json(item);
-  } catch {
+  } catch (error) {
+    console.error("Update menu error:", error);
     return NextResponse.json({ error: "Failed to update menu item" }, { status: 500 });
   }
 }

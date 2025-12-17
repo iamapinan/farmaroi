@@ -11,6 +11,7 @@ export async function GET() {
       include: { 
         openingHours: { orderBy: { weekday: "asc" } },
         logo: true,
+        gallery: { include: { image: true }, orderBy: { sortOrder: "asc" } },
       },
       orderBy: { createdAt: "desc" },
     });

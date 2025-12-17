@@ -9,7 +9,11 @@ export async function GET() {
     if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
     const items = await prisma.menuItem.findMany({
-      include: { category: true, image: true },
+      include: { 
+        category: true, 
+        image: true,
+        menuItems: { include: { location: true } } // Include location data
+      },
       orderBy: { createdAt: "desc" },
     });
     return NextResponse.json(items);
@@ -23,14 +27,29 @@ export async function POST(req: Request) {
     const session = await auth();
     if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-    const data = await req.json();
-    const item = await prisma.menuItem.create({ data });
+    const { locations, ...data } = await req.json();
+    
+    // Create menu item with locations
+    const item = await prisma.menuItem.create({
+      data: {
+        ...data,
+        menuItems: locations ? {
+          create: locations.map((loc: any) => ({
+             locationId: loc.locationId,
+             price: loc.price || null,
+             isAvailable: loc.isAvailable ?? true
+          }))
+        } : undefined
+      },
+      include: { category: true, image: true, menuItems: { include: { location: true } } }
+    });
     
     revalidatePath("/");
     revalidatePath("/menu");
     
     return NextResponse.json(item, { status: 201 });
-  } catch {
+  } catch (error) {
+    console.error("Create menu error:", error);
     return NextResponse.json({ error: "Failed to create menu item" }, { status: 500 });
   }
 }

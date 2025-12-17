@@ -39,6 +39,14 @@ export default async function LocationDetailPage({ params }: Props) {
         include: { image: true },
         orderBy: { sortOrder: "asc" },
       },
+      menuItems: {
+        where: { isAvailable: true },
+        include: {
+          menuItem: {
+             include: { category: true, image: true }
+          }
+        }
+      }
     },
   });
 
@@ -127,6 +135,71 @@ export default async function LocationDetailPage({ params }: Props) {
             )}
 
             {/* Description / Additional Info can go here */}
+            
+            {/* Menu Section */}
+            {location.menuItems.length > 0 && (
+              <section className="pt-8 border-t border-gray-100">
+                <h2 className="section-title mb-8">เมนูแนะนำที่สาขานี้</h2>
+                
+                {(() => {
+                  // Group items by category
+                  const groupedItems = location.menuItems.reduce((acc, item) => {
+                    const categoryName = item.menuItem.category.name;
+                    if (!acc[categoryName]) acc[categoryName] = [];
+                    acc[categoryName].push(item);
+                    return acc;
+                  }, {} as Record<string, typeof location.menuItems>);
+
+                  return Object.entries(groupedItems).map(([category, items]) => (
+                    <div key={category} className="mb-10 last:mb-0">
+                      <h3 className="text-xl font-bold text-gray-800 mb-4 px-4 border-l-4 border-brand bg-gray-50 py-2">
+                        {category}
+                      </h3>
+                      <div className="grid md:grid-cols-2 gap-4">
+                        {items.map(({ menuItem, price }) => (
+                          <div key={menuItem.id} className="flex gap-4 p-4 rounded-xl border border-gray-100 hover:border-brand/20 hover:shadow-sm transition-all bg-white">
+                            <div className="relative w-20 h-20 flex-shrink-0 rounded-lg overflow-hidden bg-gray-100">
+                              {menuItem.image ? (
+                                <Image 
+                                  src={menuItem.image.url} 
+                                  alt={menuItem.name} 
+                                  fill 
+                                  className="object-cover"
+                                />
+                              ) : (
+                                <div className="w-full h-full flex items-center justify-center text-gray-300">
+                                  <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                  </svg>
+                                </div>
+                              )}
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <div className="flex justify-between items-start">
+                                <h4 className="font-bold text-gray-900 truncate pr-2">{menuItem.name}</h4>
+                                <span className="text-brand font-bold whitespace-nowrap">
+                                  {(price || menuItem.price).toLocaleString()}.-
+                                </span>
+                              </div>
+                              <p className="text-sm text-gray-500 line-clamp-2 mt-1 mb-2">
+                                {menuItem.description}
+                              </p>
+                              {menuItem.spicyLevel > 0 && (
+                                <div className="flex gap-0.5">
+                                  {[...Array(menuItem.spicyLevel)].map((_, i) => (
+                                    <span key={i} className="text-xs">🌶️</span>
+                                  ))}
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ));
+                })()}
+              </section>
+            )}
           </div>
 
           {/* Sidebar: Details */}

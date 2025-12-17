@@ -60,7 +60,7 @@ export default function AdminLocationsPage() {
   useEffect(() => {
     if (editingItem) {
       setLogoId(editingItem.logo?.id || editingItem.logoId || "");
-      setGalleryItems(editingItem.gallery.map(g => ({ imageId: g.imageId, url: g.image.url })));
+      setGalleryItems(editingItem.gallery?.map(g => ({ imageId: g.imageId, url: g.image.url })) || []);
     } else {
       setLogoId("");
       setGalleryItems([]);

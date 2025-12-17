@@ -95,6 +95,7 @@ model MenuItem {
 
   category   Category  @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   image      Media?    @relation(fields: [imageId], references: [id], onDelete: SetNull)
+  menuItems  MenuLocation[]
 
   @@index([categoryId])
   @@index([slug])
@@ -173,6 +174,7 @@ model Location {
   logoId    String?
   logo      Media?           @relation(fields: [logoId], references: [id], onDelete: SetNull)
   gallery   LocationGallery[]
+  menuItems MenuLocation[]
 }
 
 model LocationGallery {
@@ -252,4 +254,21 @@ model Contact {
 
   @@index([isRead])
   @@index([createdAt])
+}
+
+model MenuLocation {
+  id         String   @id @default(cuid())
+  menuItemId String
+  locationId String
+  price      Float?
+  isAvailable Boolean @default(true)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  menuItem   MenuItem @relation(fields: [menuItemId], references: [id], onDelete: Cascade)
+  location   Location @relation(fields: [locationId], references: [id], onDelete: Cascade)
+
+  @@unique([menuItemId, locationId])
+  @@index([menuItemId])
+  @@index([locationId])
 }
