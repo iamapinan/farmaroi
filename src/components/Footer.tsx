@@ -134,29 +134,6 @@ export default function Footer() {
                 <svg className="w-5 h-5 group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
                 โทร 092-645-1982
               </a>
-              <div className="relative z-10">
-                <div className="flex items-center justify-between mb-4">
-                  <h5 className="font-bold text-white">เวลาทำการ</h5>
-                  <div className={`px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1.5 ${
-                    open ? "bg-green-500/20 text-green-400" : "bg-red-500/20 text-red-400"
-                  }`}>
-                    <span className={`w-2 h-2 rounded-full ${open ? "bg-green-400 animate-pulse" : "bg-red-400"}`}></span>
-                    {open ? "OPEN NOW" : "CLOSED"}
-                  </div>
-                </div>
-                
-                <div className="space-y-3">
-                  <div className="flex justify-between text-sm">
-                    <span className="text-white/60">วันนี้</span>
-                    <span className="text-white font-medium">{today}</span>
-                  </div>
-                  <div className="w-full h-px bg-white/10"></div>
-                  <p className="text-xs text-white/40 flex items-center gap-2">
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                    หยุดทุกวันอังคาร
-                  </p>
-                </div>
-              </div>
             </div>
           </div>
         </div>
