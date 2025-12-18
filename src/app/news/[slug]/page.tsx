@@ -86,7 +86,7 @@ export default async function NewsDetailPage({ params }: Props) {
       {/* Content Section */}
       <article className="container-site -mt-10 relative z-10">
         <div className="bg-white rounded-3xl shadow-xl p-8 md:p-12 lg:p-16 animate-fade-in delay-100">
-          <div className="prose prose-lg md:prose-xl max-w-none prose-headings:text-brown prose-a:text-brand prose-a:no-underline hover:prose-a:underline prose-img:rounded-2xl">
+          <div className="prose prose-lg text-black md:prose-xl max-w-none prose-headings:text-brown prose-a:text-brand prose-a:no-underline hover:prose-a:underline prose-img:rounded-2xl">
             {post.content.split("\n").map((para, i) => (
               <p key={i}>{para}</p>
             ))}
