@@ -3,6 +3,7 @@ import { getActivePromotions } from "@/services/promotionService";
 import Image from "next/image";
 import Link from "next/link";
 import ParallaxBg from "@/components/ParallaxBg";
+import Script from "next/script";
 
 export default async function Home() {
   type SignatureItems = Awaited<ReturnType<typeof getSignatureItems>>;
@@ -23,8 +24,25 @@ export default async function Home() {
     console.error("Home page: Failed to fetch promotions", error);
   }
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "ฟาร์มอร่อย (Farm Aroi)",
+    "url": "https://farmaroi.net",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://farmaroi.net/menu?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  };
+
   return (
     <div className="flex flex-col min-h-screen">
+      <Script
+        id="website-ld"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         <ParallaxBg 

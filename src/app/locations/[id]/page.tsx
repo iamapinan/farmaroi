@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { Metadata } from "next";
+import Script from "next/script";
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -52,8 +53,43 @@ export default async function LocationDetailPage({ params }: Props) {
 
   if (!location) notFound();
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Restaurant",
+    "name": location.name,
+    "image": location.logo ? location.logo.url : location.gallery[0]?.image.url,
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": location.address,
+      "addressCountry": "TH"
+    },
+    "geo": (location.latitude && location.longitude) ? {
+      "@type": "GeoCoordinates",
+      "latitude": location.latitude,
+      "longitude": location.longitude
+    } : undefined,
+    "url": `https://farmaroi.net/locations/${location.id}`,
+    "telephone": location.phone,
+    "openingHoursSpecification": location.openingHours.map(oh => ({
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
+      ][oh.weekday],
+      "opens": oh.openTime,
+      "closes": oh.closeTime
+    })),
+    "menu": `https://farmaroi.net/locations/${location.id}#menu`,
+    "servesCuisine": "Thai",
+    "priceRange": "$$"
+  };
+
   return (
     <div className="min-h-screen bg-white">
+      <Script
+        id={`location-ld-${location.id}`}
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {/* Hero Section */}
       <div className="relative h-[60vh] min-h-[400px] bg-gray-900">
         <div className="absolute inset-0">
