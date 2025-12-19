@@ -1,6 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import Image from "next/image";
+import { useRef } from "react";
 
 interface ParallaxBgProps {
   imageUrl?: string;
@@ -8,27 +10,30 @@ interface ParallaxBgProps {
 }
 
 export default function ParallaxBg({ imageUrl, className = "" }: ParallaxBgProps) {
-  const [offset, setOffset] = useState(0);
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"],
+  });
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setOffset(window.pageYOffset);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
 
   if (!imageUrl) return null;
 
   return (
-    <div
-      className={`absolute inset-0 bg-cover bg-center ${className}`}
-      style={{
-        backgroundImage: `url(${imageUrl})`,
-        transform: `translateY(${offset * 0.5}px)`,
-      }}
-    />
+    <div ref={ref} className={`absolute inset-0 overflow-hidden ${className}`}>
+      <motion.div style={{ y }} className="relative w-full h-[120%] -top-[10%]">
+        <Image
+          src={imageUrl}
+          alt="Background"
+          fill
+          priority
+          className="object-cover"
+          sizes="100vw"
+          quality={85}
+        />
+      </motion.div>
+    </div>
   );
 }
 

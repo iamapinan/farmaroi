@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma";
+import { unstable_cache } from "next/cache";
 
 export async function getCategories() {
   try {
@@ -45,16 +46,21 @@ export async function getMenuItemBySlug(slug: string) {
   }
 }
 
-export async function getSignatureItems() {
-  try {
-    return await prisma.menuItem.findMany({
-      where: { isSignature: true, isActive: true },
-      include: { category: true, image: true },
-      take: 6,
-    });
-  } catch (error) {
-    console.error("Failed to fetch signature items:", error);
-    return [];
-  }
-}
+export const getSignatureItems = unstable_cache(
+  async () => {
+    try {
+      return await prisma.menuItem.findMany({
+        where: { isSignature: true, isActive: true },
+        include: { category: true, image: true },
+        take: 6,
+      });
+    } catch (error) {
+      console.error("Failed to fetch signature items:", error);
+      return [];
+    }
+  },
+  ["signature-items"],
+  { revalidate: 3600 } // Cache for 1 hour
+);
+
 

@@ -1,26 +1,31 @@
 import { prisma } from "@/lib/prisma";
+import { unstable_cache } from "next/cache";
 
-export async function getActivePromotions() {
-  const now = new Date();
-  try {
-    return await prisma.promotion.findMany({
-      where: {
-        isActive: true,
-        OR: [
-          { startAt: null, endAt: null },
-          { startAt: { lte: now }, endAt: null },
-          { startAt: null, endAt: { gte: now } },
-          { startAt: { lte: now }, endAt: { gte: now } },
-        ],
-      },
-      include: { image: true },
-      orderBy: { createdAt: "desc" },
-    });
-  } catch (error) {
-    console.warn("Failed to fetch active promotions (returning empty list):", error);
-    return [];
-  }
-}
+export const getActivePromotions = unstable_cache(
+  async () => {
+    const now = new Date();
+    try {
+      return await prisma.promotion.findMany({
+        where: {
+          isActive: true,
+          OR: [
+            { startAt: null, endAt: null },
+            { startAt: { lte: now }, endAt: null },
+            { startAt: null, endAt: { gte: now } },
+            { startAt: { lte: now }, endAt: { gte: now } },
+          ],
+        },
+        include: { image: true },
+        orderBy: { createdAt: "desc" },
+      });
+    } catch (error) {
+      console.warn("Failed to fetch active promotions (returning empty list):", error);
+      return [];
+    }
+  },
+  ["active-promotions"],
+  { revalidate: 3600 } // Cache for 1 hour
+);
 
 export async function getPromotionBySlug(slug: string) {
   try {
