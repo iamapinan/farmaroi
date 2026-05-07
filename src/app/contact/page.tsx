@@ -160,7 +160,20 @@ export default function ContactPage() {
                 { q: "รับบัตรเครดิตไหม?", a: "ไม่รับบัตรเครดิต" },
                 { q: "มีบริการรถเข็นสำหรับผู้พิการไหม?", a: "มีทางลาดและพื้นที่รองรับสำหรับผู้ใช้รถเข็น" },
                 { q: "มีบริการห้องน้ำไหม?", a: "มีบริการห้องน้ำสะอาด แยกชาย-หญิง" }
-              ]}
+              ].map((faq, index) => (
+                <div 
+                  key={index} 
+                  className="p-6 rounded-2xl bg-gray-50/50 hover:bg-white border border-transparent hover:border-brand-green/20 hover:shadow-xl transition-all duration-300 group"
+                >
+                  <h3 className="font-bold text-brown mb-2 group-hover:text-brand-green transition-colors flex items-center gap-3">
+                    <span className="w-8 h-8 rounded-lg bg-brand-green/10 text-brand-green flex items-center justify-center text-sm font-bold flex-shrink-0">Q</span>
+                    {faq.q}
+                  </h3>
+                  <div className="flex items-start gap-3 pl-11 text-gray-600 leading-relaxed">
+                    <p>{faq.a}</p>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
