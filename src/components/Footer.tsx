@@ -1,8 +1,16 @@
+"use client";
+
 import { humanOpeningToday, isOpenNow } from "@/lib/opening-hours";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 export default function Footer() {
+  const pathname = usePathname();
+  const isHidden = pathname?.startsWith("/admin");
+
+  if (isHidden) return null;
+
   const open = isOpenNow();
   const today = humanOpeningToday();
   const currentYear = new Date().getFullYear();
@@ -39,14 +47,6 @@ export default function Footer() {
                 </div>
               </div>
             </Link>
-            <p className="text-white/60 leading-relaxed max-w-sm">
-              สัมผัสบรรยากาศสไตล์ฟาร์มคาเฟ่ ใกล้ชิดธรรมชาติ พร้อมเสิร์ฟความอร่อยจากวัตถุดิบคุณภาพที่เราคัดสรรมาเพื่อคุณ
-            </p>
-            <div className="text-sm text-white/40 mt-2">
-               <p>สาขา 1: ตะเคียนเตี้ย บางละมุง</p>
-               <p>สาขา 2: ศรีราชา-หนองค้อ</p>
-            </div>
-            
           </div>
 
           {/* Quick Links */}

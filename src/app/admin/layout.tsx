@@ -20,6 +20,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
     { href: "/admin/contacts", label: "ข้อความติดต่อ", icon: "💬" },
     { href: "/admin/files", label: "ไฟล์", icon: "📁" },
     { href: "/admin/gallery", label: "แกลเลอรี", icon: "🖼️" },
+    { href: "/admin/stock", label: "เช็คสต๊อก", icon: "📋" },
   ];
 
   if (session.user?.role === "ADMIN") {

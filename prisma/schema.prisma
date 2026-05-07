@@ -272,3 +272,25 @@ model MenuLocation {
   @@index([menuItemId])
   @@index([locationId])
 }
+
+model StockItem {
+  id        Int      @id @default(autoincrement())
+  name      String
+  category  String
+  isActive  Boolean  @default(true)
+  inStock   Boolean  @default(true)
+  updatedAt DateTime @updatedAt
+
+  @@index([category])
+  @@index([isActive])
+}
+
+model StockCheckLog {
+  id        String   @id @default(cuid())
+  date      DateTime @default(now())
+  items     String   @db.Text
+  createdAt DateTime @default(now())
+  
+  @@index([date])
+}
+

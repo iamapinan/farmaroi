@@ -11,6 +11,7 @@ const nextConfig: NextConfig = {
       },
     ],
     unoptimized: process.env.NODE_ENV === "development",
+    qualities: [75, 85],
   },
   experimental: {
     serverActions: {

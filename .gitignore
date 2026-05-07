@@ -10,7 +10,7 @@
 
 # testing
 /coverage
-
+env-copy
 # next.js
 /.next/
 /out/

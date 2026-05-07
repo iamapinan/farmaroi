@@ -110,8 +110,6 @@ export default function ContactPage() {
                 </div>
               </div>
             </div>
-
-            {/* Contact Form Column */}
             <div className="lg:col-span-7">
               <div className="relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-brand-orange/5 rounded-bl-full pointer-events-none"></div>
@@ -121,7 +119,6 @@ export default function ContactPage() {
                   <ContactForm />
                 </div>
               </div>
-
               {/* Map Section */}
               <div className="mt-8 rounded-[2rem] overflow-hidden shadow-lg border border-gray-100 h-[300px] relative group">
                 <iframe 
@@ -154,14 +151,15 @@ export default function ContactPage() {
                 { q: "ร้านเปิดกี่โมง?", a: "ร้านเปิดให้บริการทุกวัน เวลา 10:00 - 20:00 น. (หยุดทุกวันอังคาร)" },
                 { q: "มีที่จอดรถไหม?", a: "มีลานจอดรถกว้างขวาง รองรับรถยนต์ได้มากกว่า 20 คัน" },
                 { q: "รับจองโต๊ะล่วงหน้าไหม?", a: "รับจองโต๊ะล่วงหน้า สามารถโทรจองได้ที่เบอร์ 092-645-1982" },
-                { q: "มีบริการเดลิเวอรี่ไหม?", a: "มีบริการผ่าน GrabFood และ Lineman หรือสั่งโดยตรงกับทางร้าน" },
+                { q: "มีบริการเดลิเวอรี่ไหม?", a: "มีบริการผ่าน GrabFood และ Lineman หรือสั่งโดยตรงกับทางร้าน ไม่มีค่าบริการจัดส่ง" },
                 { q: "มีบริการ Wi-Fi ไหม?", a: "มีบริการ Wi-Fi ฟรีสำหรับลูกค้าทุกคน" },
                 { q: "นำสัตว์เลี้ยงได้ไหม?", a: "สามารถนำสัตว์เลี้ยงเข้าร้านได้" },
-              ].map((item, index) => (
-                <div key={index} className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-                  <h3 className="font-bold text-brown text-lg mb-2">{item.q}</h3>
-                  <p className="text-gray-600">{item.a}</p>
-                </div>
+                { q: "มีเมนูสำหรับเด็กไหม?", a: "มีเมนูสำหรับเด็ก รสชาติอ่อนโยนถูกใจน้องๆ" },
+                { q: "มีเมนูมังสวิรัติไหม?", a: "มีเมนูมังสวิรัติหลากหลายรายการ สามารถสอบถามพนักงานได้" },
+                { q: "รับจัดเลี้ยง/สั่งกลับบ้านไหม?", a: "รับจัดเลี้ยงนอกสถานที่ และมีบริการสั่งกลับบ้าน" },
+                { q: "รับบัตรเครดิตไหม?", a: "ไม่รับบัตรเครดิต" },
+                { q: "มีบริการรถเข็นสำหรับผู้พิการไหม?", a: "มีทางลาดและพื้นที่รองรับสำหรับผู้ใช้รถเข็น" },
+                { q: "มีบริการห้องน้ำไหม?", a: "มีบริการห้องน้ำสะอาด แยกชาย-หญิง" }
               ))}
             </div>
           </div>
