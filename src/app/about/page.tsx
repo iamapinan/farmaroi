@@ -38,7 +38,7 @@ export default function AboutPage() {
           <div className="relative order-2 lg:order-1 animate-slide-in">
             <div className="relative aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl transform rotate-2 hover:rotate-0 transition-transform duration-500">
               <Image
-                src="https://pub-a7f38d05664e425c94818a8f29c366b9.r2.dev/uploads/1764962115438-Gemini_Generated_Image_ef6yifef6yifef6y.png"
+                src="/media/uploads/1764962115438-Gemini_Generated_Image_ef6yifef6yifef6y.png"
                 alt="บรรยากาศร้านฟาร์มอร่อย"
                 fill
                 className="object-cover"
@@ -217,7 +217,7 @@ export default function AboutPage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 h-64 md:h-80">
             <div className="col-span-2 row-span-2 relative rounded-2xl overflow-hidden group">
               <Image
-                src="https://pub-a7f38d05664e425c94818a8f29c366b9.r2.dev/uploads/1764962998228-B040334A-39AC-4FEE-8AC9-85B3C8D49869_1_105_c.jpeg"
+                src="/media/uploads/1764962998228-B040334A-39AC-4FEE-8AC9-85B3C8D49869_1_105_c.jpeg"
                 alt="Gallery 1"
                 fill
                 className="object-cover group-hover:scale-110 transition-transform duration-700"
@@ -225,7 +225,7 @@ export default function AboutPage() {
             </div>
             <div className="relative rounded-2xl overflow-hidden group">
               <Image
-                src="https://pub-a7f38d05664e425c94818a8f29c366b9.r2.dev/uploads/1764962448621-IMG_3598.JPG"
+                src="/media/uploads/1764962448621-IMG_3598.JPG"
                 alt="Gallery 2"
                 fill
                 className="object-cover group-hover:scale-110 transition-transform duration-700"
@@ -233,7 +233,7 @@ export default function AboutPage() {
             </div>
             <div className="relative rounded-2xl overflow-hidden group">
               <Image
-                src="https://pub-a7f38d05664e425c94818a8f29c366b9.r2.dev/uploads/1764962455555-IMG_3601.JPG"
+                src="/media/uploads/1764962455555-IMG_3601.JPG"
                 alt="Gallery 3"
                 fill
                 className="object-cover group-hover:scale-110 transition-transform duration-700"
@@ -241,7 +241,7 @@ export default function AboutPage() {
             </div>
             <div className="relative rounded-2xl overflow-hidden group">
               <Image
-                src="https://pub-a7f38d05664e425c94818a8f29c366b9.r2.dev/uploads/1764962989555-IMG_1569.jpeg"
+                src="/media/uploads/1764962989555-IMG_1569.jpeg"
                 alt="Gallery 4"
                 fill
                 className="object-cover group-hover:scale-110 transition-transform duration-700"
@@ -249,7 +249,7 @@ export default function AboutPage() {
             </div>
             <div className="relative rounded-2xl overflow-hidden group">
               <Image
-                src="https://pub-a7f38d05664e425c94818a8f29c366b9.r2.dev/uploads/1764962500493-IMG_1207.jpeg"
+                src="/media/uploads/1764962500493-IMG_1207.jpeg"
                 alt="Gallery 4"
                 fill
                 className="object-cover group-hover:scale-110 transition-transform duration-700"
@@ -264,7 +264,7 @@ export default function AboutPage() {
       <section className="relative py-24 lg:py-32 overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src="https://pub-a7f38d05664e425c94818a8f29c366b9.r2.dev/uploads/1764962879114-IMG_1537.jpeg"
+            src="/media/uploads/1764962879114-IMG_1537.jpeg"
             alt="Farmaroi Ambience"
             fill
             className="object-cover"

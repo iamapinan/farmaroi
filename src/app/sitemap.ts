@@ -4,7 +4,7 @@ import { getActivePromotions } from "@/services/promotionService";
 import { getPublishedPosts } from "@/services/postService";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = "https://example.com";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://farmaroi.net";
 
   let menuItems: Awaited<ReturnType<typeof getMenuItems>> = [];
   let promotions: Awaited<ReturnType<typeof getActivePromotions>> = [];

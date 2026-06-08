@@ -1,4 +1,4 @@
-import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
+import { S3Client, PutObjectCommand, DeleteObjectCommand } from "@aws-sdk/client-s3";
 
 const r2 = new S3Client({
   region: "auto",
@@ -22,9 +22,44 @@ export async function uploadToR2(file: File, folder: string = "uploads"): Promis
     })
   );
 
-  const publicUrl = `${process.env.R2_PUBLIC_URL || "https://pub-a7f38d05664e425c94818a8f29c366b9.r2.dev"}/${filename}`;
-  return publicUrl;
+  return `/media/${filename}`;
+}
+
+export async function deleteFromR2(url: string): Promise<void> {
+  try {
+    const publicUrlPrefix = process.env.R2_PUBLIC_URL || "https://pub-a7f38d05664e425c94818a8f29c366b9.r2.dev";
+    let key = url;
+    
+    if (url.startsWith(publicUrlPrefix)) {
+      key = url.replace(publicUrlPrefix, "");
+    } else if (url.startsWith("/media/")) {
+      key = url.replace("/media/", "");
+    } else if (url.startsWith("media/")) {
+      key = url.replace("media/", "");
+    } else {
+      try {
+        const parsed = new URL(url);
+        key = parsed.pathname.substring(1);
+      } catch {
+        key = url;
+      }
+    }
+
+    if (key.startsWith("/")) {
+      key = key.substring(1);
+    }
+
+    await r2.send(
+      new DeleteObjectCommand({
+        Bucket: "farmaroi",
+        Key: key,
+      })
+    );
+  } catch (error) {
+    console.error("Failed to delete from R2:", error);
+  }
 }
 
 export { r2 };
+
 

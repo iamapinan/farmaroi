@@ -1,6 +1,24 @@
 import { getCategories, getMenuItems } from "@/services/menuService";
 import Image from "next/image";
+import type { Metadata } from "next";
+import JsonLd from "@/components/JsonLd";
 
+export const metadata: Metadata = {
+  title: "เมนูอาหาร | ฟาร์มอร่อย",
+  description: "พบกับเมนูอาหารและเครื่องดื่มพรีเมียมจากร้านฟาร์มอร่อย เมนูกะเพราสูตรพิเศษและกาแฟหอมอร่อยที่คัดสรรเป็นอย่างดี",
+  openGraph: {
+    title: "เมนูอาหาร | ฟาร์มอร่อย",
+    description: "พบกับเมนูอาหารและเครื่องดื่มพรีเมียมจากร้านฟาร์มอร่อย เมนูกะเพราสูตรพิเศษและกาแฟหอมอร่อยที่คัดสรรเป็นอย่างดี",
+    url: "/menu",
+    images: [{ url: "https://images.unsplash.com/photo-1590846406792-0adc7f938f1d?w=1200&q=80" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "เมนูอาหาร | ฟาร์มอร่อย",
+    description: "พบกับเมนูอาหารและเครื่องดื่มพรีเมียมจากร้านฟาร์มอร่อย เมนูกะเพราสูตรพิเศษและกาแฟหอมอร่อยที่คัดสรรเป็นอย่างดี",
+    images: ["https://images.unsplash.com/photo-1590846406792-0adc7f938f1d?w=1200&q=80"],
+  },
+};
 
 export default async function MenuPage() {
   const categories = await getCategories();
@@ -12,8 +30,32 @@ export default async function MenuPage() {
     items: menuItems.filter(item => item.categoryId === category.id)
   })).filter(cat => cat.items.length > 0);
 
+  const menuJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Menu",
+    "name": "เมนูอาหาร ฟาร์มอร่อย",
+    "description": "รายการอาหารและเครื่องดื่มของร้านฟาร์มอร่อย มีเมนูกะเพราและกาแฟพรีเมียม",
+    "hasMenuSection": itemsByCategory.map(cat => ({
+      "@type": "MenuSection",
+      "name": cat.name,
+      "hasMenuItem": cat.items.map(item => ({
+        "@type": "MenuItem",
+        "name": item.name,
+        "description": item.description || undefined,
+        "offers": {
+          "@type": "Offer",
+          "price": item.price,
+          "priceCurrency": "THB"
+        },
+        "image": item.image?.url || undefined
+      }))
+    }))
+  };
+
   return (
     <div className="min-h-screen bg-white pb-20">
+      <JsonLd data={menuJsonLd} />
+
       {/* Hero Section */}
       <section className="relative h-[50vh] min-h-[400px] flex items-center justify-center overflow-hidden bg-brown">
         <div className="absolute inset-0">

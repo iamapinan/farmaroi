@@ -4,6 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import ShareButton from "@/components/ShareButton";
 import type { Metadata } from "next";
+import JsonLd from "@/components/JsonLd";
+import { generateArticleJsonLd } from "@/lib/seo";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -11,9 +13,27 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const post = await getPostBySlug(slug);
   if (!post) return { title: "ไม่พบข่าว" };
+  
+  const title = `${post.title} | ฟาร์มอร่อย`;
+  const description = post.excerpt || "ข่าวสารและบทความล่าสุดจากร้านฟาร์มอร่อย";
+  const imageUrl = post.cover?.url || "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1200&q=80";
+
   return {
-    title: `${post.title} | ฟาร์มอร่อย`,
-    description: post.excerpt || undefined,
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      type: "article",
+      url: `/news/${slug}`,
+      images: [{ url: imageUrl }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [imageUrl],
+    },
   };
 }
 
@@ -29,6 +49,8 @@ export default async function NewsDetailPage({ params }: Props) {
 
   return (
     <div className="min-h-screen bg-gray-50 pb-20">
+      <JsonLd data={generateArticleJsonLd(post)} />
+
       {/* Hero Section */}
       <section className="relative h-[60vh] min-h-[500px] w-full overflow-hidden">
         <Image

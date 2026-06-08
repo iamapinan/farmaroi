@@ -18,6 +18,15 @@ const nextConfig: NextConfig = {
       bodySizeLimit: "2mb",
     },
   },
+  async rewrites() {
+    const r2Url = process.env.R2_PUBLIC_URL || "https://pub-a7f38d05664e425c94818a8f29c366b9.r2.dev";
+    return [
+      {
+        source: "/media/:path*",
+        destination: `${r2Url}/:path*`,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

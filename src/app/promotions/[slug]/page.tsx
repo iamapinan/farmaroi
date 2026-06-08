@@ -4,6 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import ShareButton from "@/components/ShareButton";
 import type { Metadata } from "next";
+import JsonLd from "@/components/JsonLd";
+import { generatePromotionJsonLd } from "@/lib/seo";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -11,9 +13,27 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const promotion = await getPromotionBySlug(slug);
   if (!promotion) return { title: "ไม่พบโปรโมชั่น" };
+  
+  const title = `${promotion.title} | ฟาร์มอร่อย`;
+  const description = promotion.description || "โปรโมชันและข้อเสนอพิเศษจากฟาร์มอร่อย";
+  const imageUrl = promotion.image?.url || "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=1200&q=80";
+
   return {
-    title: promotion.title,
-    description: promotion.description || undefined,
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      type: "website",
+      url: `/promotions/${slug}`,
+      images: [{ url: imageUrl }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [imageUrl],
+    },
   };
 }
 
@@ -24,6 +44,8 @@ export default async function PromotionDetailPage({ params }: Props) {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white via-orange-50/30 to-white">
+      <JsonLd data={generatePromotionJsonLd(promotion)} />
+
       {/* Hero Section with Image */}
       <section className="relative bg-gradient-to-br from-accent/10 via-orange-50 to-secondary/10">
         <div className="container-site py-10 mt-20">

@@ -25,6 +25,14 @@ export default function AdminPostsPage() {
 
   useEffect(() => { fetchItems(); }, []);
 
+  useEffect(() => {
+    if (editingItem) {
+      setCoverId(editingItem.cover?.id || editingItem.coverId || "");
+    } else {
+      setCoverId("");
+    }
+  }, [editingItem]);
+
   const fetchItems = async () => {
     const res = await fetch("/api/admin/posts");
     if (res.ok) setItems(await res.json());
@@ -41,7 +49,9 @@ export default function AdminPostsPage() {
       content: formData.get("content") as string,
       coverId: coverId || null,
       status: formData.get("status") as "DRAFT" | "PUBLISHED",
-      publishedAt: formData.get("status") === "PUBLISHED" ? new Date().toISOString() : null,
+      publishedAt: formData.get("status") === "PUBLISHED"
+        ? (editingItem?.publishedAt || new Date().toISOString())
+        : null,
     };
 
     const url = editingItem ? `/api/admin/posts/${editingItem.id}` : "/api/admin/posts";

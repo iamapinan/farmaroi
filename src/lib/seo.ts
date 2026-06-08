@@ -83,7 +83,7 @@ export function generateMenuItemJsonLd(item: {
 export function generateArticleJsonLd(post: {
   title: string;
   excerpt?: string | null;
-  publishedAt?: Date | null;
+  publishedAt?: Date | string | null;
   author: { name: string };
   cover?: { url: string } | null;
 }) {
@@ -92,7 +92,7 @@ export function generateArticleJsonLd(post: {
     "@type": "Article",
     headline: post.title,
     description: post.excerpt || undefined,
-    datePublished: post.publishedAt?.toISOString(),
+    datePublished: post.publishedAt ? new Date(post.publishedAt).toISOString() : undefined,
     author: {
       "@type": "Person",
       name: post.author.name,
@@ -100,4 +100,37 @@ export function generateArticleJsonLd(post: {
     image: post.cover?.url,
   };
 }
+
+export function generatePromotionJsonLd(promotion: {
+  title: string;
+  description?: string | null;
+  startAt?: Date | string | null;
+  endAt?: Date | string | null;
+  image?: { url: string } | null;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "SaleEvent",
+    name: promotion.title,
+    description: promotion.description || undefined,
+    startDate: promotion.startAt ? new Date(promotion.startAt).toISOString() : undefined,
+    endDate: promotion.endAt ? new Date(promotion.endAt).toISOString() : undefined,
+    image: promotion.image?.url,
+    eventStatus: "EventScheduled",
+    eventAttendanceMode: "OfflineEventAttendanceMode",
+    location: {
+      "@type": "Place",
+      name: "ฟาร์มอร่อย",
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "7/1",
+        addressLocality: "ตะเคียนเตี้ย",
+        addressRegion: "บางละมุง, ชลบุรี",
+        postalCode: "20250",
+        addressCountry: "TH",
+      },
+    },
+  };
+}
+
 

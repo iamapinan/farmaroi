@@ -46,7 +46,7 @@ export default async function Home() {
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         <ParallaxBg 
-          imageUrl="https://pub-a7f38d05664e425c94818a8f29c366b9.r2.dev/uploads/1764961359325-Image_5sg7245sg7245sg7.png" 
+          imageUrl="/media/uploads/1764961359325-Image_5sg7245sg7245sg7.png" 
           className="opacity-90"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-transparent z-10"></div>
@@ -90,7 +90,7 @@ export default async function Home() {
             <div className="relative order-2 lg:order-1">
               <div className="relative aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl transform rotate-2 hover:rotate-0 transition-all duration-500">
                 <Image
-                  src="https://pub-a7f38d05664e425c94818a8f29c366b9.r2.dev/uploads/1764960311867-Gemini_Generated_Image_mmhehqmmhehqmmhe.png"
+                  src="/media/uploads/1764960311867-Gemini_Generated_Image_mmhehqmmhehqmmhe.png"
                   alt="Chef cooking"
                   fill
                   className="object-cover"

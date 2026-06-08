@@ -24,6 +24,14 @@ export default function AdminPromotionsPage() {
 
   useEffect(() => { fetchItems(); }, []);
 
+  useEffect(() => {
+    if (editingItem) {
+      setImageId(editingItem.image?.id || editingItem.imageId || "");
+    } else {
+      setImageId("");
+    }
+  }, [editingItem]);
+
   const fetchItems = async () => {
     const res = await fetch("/api/admin/promotions");
     if (res.ok) setItems(await res.json());
