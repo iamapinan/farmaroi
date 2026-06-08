@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import ImageUpload from "@/components/ImageUpload";
 
 interface Post {
@@ -80,37 +81,80 @@ export default function AdminPostsPage() {
           <button onClick={() => { setEditingItem(null); setShowModal(true); }} className="btn btn-primary">เพิ่มข่าวสาร</button>
         </div>
 
-        <div className="bg-white rounded-lg border border-black/10 overflow-hidden">
-          <table className="w-full">
-            <thead className="bg-gray-50 border-b border-black/10">
-              <tr>
-                <th className="px-4 py-3 text-left text-sm font-bold">หัวข้อข่าว</th>
-                <th className="px-4 py-3 text-left text-sm font-bold">ผู้เขียน</th>
-                <th className="px-4 py-3 text-left text-sm font-bold">วันที่เผยแพร่</th>
-                <th className="px-4 py-3 text-center text-sm font-bold">สถานะ</th>
-                <th className="px-4 py-3 text-center text-sm font-bold">จัดการ</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-black/5">
-              {items.map((item) => (
-                <tr key={item.id} className="hover:bg-gray-50">
-                  <td className="px-4 py-3 font-medium">{item.title}</td>
-                  <td className="px-4 py-3 text-sm">{item.author.name}</td>
-                  <td className="px-4 py-3 text-sm">{item.publishedAt ? new Date(item.publishedAt).toLocaleDateString("th-TH") : "-"}</td>
-                  <td className="px-4 py-3 text-center">
-                    <span className={`text-xs px-2 py-1 rounded-full ${item.status === "PUBLISHED" ? "bg-green-100 text-green-700" : "bg-gray-100 text-gray-700"}`}>
+        {items.length === 0 ? (
+          <div className="text-center py-16 bg-white rounded-2xl border border-black/10">
+            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gray-50 flex items-center justify-center text-gray-300">
+              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 4a2 2 0 00-2-2m2 2a2 2 0 11-4 0V7" />
+              </svg>
+            </div>
+            <p className="text-gray-400">ยังไม่มีข่าวสารในขณะนี้</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {items.map((item) => (
+              <div key={item.id} className="group bg-white rounded-2xl border border-black/10 overflow-hidden flex flex-col hover:shadow-xl transition-all duration-300">
+                {/* Image Section */}
+                <div className="relative aspect-[16/10] w-full bg-gray-100 overflow-hidden">
+                  {item.cover?.url ? (
+                    <Image
+                      src={item.cover.url}
+                      alt={item.cover.alt || item.title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-gradient-to-br from-blue-50/50 to-indigo-50/50 flex items-center justify-center text-blue-800/30">
+                      <svg className="w-12 h-12 stroke-current opacity-40" fill="none" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                      </svg>
+                    </div>
+                  )}
+                  {/* Status Badge */}
+                  <div className="absolute top-3 right-3 z-10">
+                    <span className={`text-xs px-2.5 py-1 rounded-full font-semibold shadow-sm ${item.status === "PUBLISHED" ? "bg-emerald-500 text-white" : "bg-gray-400 text-white"}`}>
                       {item.status === "PUBLISHED" ? "เผยแพร่แล้ว" : "แบบร่าง"}
                     </span>
-                  </td>
-                  <td className="px-4 py-3 text-center space-x-2">
-                    <button onClick={() => { setEditingItem(item); setShowModal(true); }} className="text-blue-600 hover:underline text-sm">แก้ไข</button>
-                    <button onClick={() => handleDelete(item.id)} className="text-red-600 hover:underline text-sm">ลบ</button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-      </div>
+                  </div>
+                </div>
+
+                {/* Content Section */}
+                <div className="p-5 flex-1 flex flex-col justify-between">
+                  <div className="mb-4">
+                    <h3 className="font-bold text-lg text-gray-800 line-clamp-1 mb-1.5 group-hover:text-blue-600 transition-colors">{item.title}</h3>
+                    {item.excerpt ? (
+                      <p className="text-sm text-gray-500 line-clamp-2 leading-relaxed">{item.excerpt}</p>
+                    ) : (
+                      <p className="text-sm text-gray-300 italic">ไม่มีข้อมูลสรุปข่าว</p>
+                    )}
+                  </div>
+
+                  <div className="space-y-2 border-t border-black/5 pt-3">
+                    <div className="flex justify-between text-xs text-gray-500">
+                      <span>ผู้เขียน:</span>
+                      <span className="font-medium text-gray-700">{item.author.name}</span>
+                    </div>
+                    <div className="flex justify-between text-xs text-gray-500">
+                      <span>วันที่เผยแพร่:</span>
+                      <span className="font-medium text-gray-700">{item.publishedAt ? new Date(item.publishedAt).toLocaleDateString("th-TH") : "-"}</span>
+                    </div>
+                  </div>
+
+                  {/* Actions */}
+                  <div className="flex justify-end gap-2 mt-4 pt-3 border-t border-black/5">
+                    <button onClick={() => { setEditingItem(item); setShowModal(true); }} className="px-3 py-1.5 text-sm font-medium text-blue-600 hover:bg-blue-50 rounded-lg transition-colors">
+                      แก้ไข
+                    </button>
+                    <button onClick={() => handleDelete(item.id)} className="px-3 py-1.5 text-sm font-medium text-red-600 hover:bg-red-50 rounded-lg transition-colors">
+                      ลบ
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
 
       {showModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50" onClick={() => setShowModal(false)}>
