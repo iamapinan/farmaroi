@@ -118,31 +118,44 @@ async function main() {
   // Location
   const location = await prisma.location.upsert({
     where: { id: "main" },
-    update: {},
+    update: {
+      name: "ฟาร์มอร่อย กะเพรา กาแฟ คาเฟ่",
+      address: "69/21 ถนนแหลมทอง ตำบลทุ่งสุขลา อำเภอศรีราชา จังหวัดชลบุรี 20230",
+      phone: "092-645-1982",
+      mapUrl: "https://maps.app.goo.gl/EUeN8NiT87SuWfSM9",
+      latitude: 13.037818193682448,
+      longitude: 100.9482738488545,
+    },
     create: {
       id: "main",
-      name: "ฟาร์มอร่อย สาขาหลัก",
-      address: "123 ถนนตัวอย่าง อำเภอเมือง จังหวัดตัวอย่าง 12345",
-      phone: "02-123-4567",
-      mapUrl: "https://maps.google.com",
+      name: "ฟาร์มอร่อย กะเพรา กาแฟ คาเฟ่",
+      address: "69/21 ถนนแหลมทอง ตำบลทุ่งสุขลา อำเภอศรีราชา จังหวัดชลบุรี 20230",
+      phone: "092-645-1982",
+      mapUrl: "https://maps.app.goo.gl/EUeN8NiT87SuWfSM9",
+      latitude: 13.037818193682448,
+      longitude: 100.9482738488545,
     },
   });
 
-  // Opening hours (ปิดวันอังคาร)
+  // Opening hours (เปิดทุกวัน 09:00-19:00)
   const hours = [
-    { weekday: 0, openTime: "09:00", closeTime: "20:00", isClosed: false }, // Sun
-    { weekday: 1, openTime: "09:00", closeTime: "20:00", isClosed: false }, // Mon
-    { weekday: 2, openTime: "00:00", closeTime: "00:00", isClosed: true },  // Tue CLOSED
-    { weekday: 3, openTime: "09:00", closeTime: "20:00", isClosed: false }, // Wed
-    { weekday: 4, openTime: "09:00", closeTime: "20:00", isClosed: false }, // Thu
-    { weekday: 5, openTime: "09:00", closeTime: "21:00", isClosed: false }, // Fri
-    { weekday: 6, openTime: "09:00", closeTime: "21:00", isClosed: false }, // Sat
+    { weekday: 0, openTime: "09:00", closeTime: "19:00", isClosed: false }, // Sun
+    { weekday: 1, openTime: "09:00", closeTime: "19:00", isClosed: false }, // Mon
+    { weekday: 2, openTime: "09:00", closeTime: "19:00", isClosed: false }, // Tue
+    { weekday: 3, openTime: "09:00", closeTime: "19:00", isClosed: false }, // Wed
+    { weekday: 4, openTime: "09:00", closeTime: "19:00", isClosed: false }, // Thu
+    { weekday: 5, openTime: "09:00", closeTime: "19:00", isClosed: false }, // Fri
+    { weekday: 6, openTime: "09:00", closeTime: "19:00", isClosed: false }, // Sat
   ];
 
   for (const h of hours) {
     await prisma.openingHour.upsert({
       where: { locationId_weekday: { locationId: location.id, weekday: h.weekday } },
-      update: {},
+      update: {
+        openTime: h.openTime,
+        closeTime: h.closeTime,
+        isClosed: h.isClosed,
+      },
       create: { locationId: location.id, ...h },
     });
   }
@@ -168,8 +181,8 @@ async function main() {
     create: {
       title: "ยินดีต้อนรับสู่ฟาร์มอร่อย",
       slug: "welcome",
-      content: "เรายินดีต้อนรับทุกท่านสู่ฟาร์มคาเฟ่สไตล์ใหม่ พร้อมเมนูกะเพราสูตรเด็ดและกาแฟหอมกรุ่น",
-      excerpt: "ฟาร์มคาเฟ่สไตล์ใหม่ เมนูกะเพราและกาแฟ",
+      content: "เรายินดีต้อนรับทุกท่านสู่ร้านอาหารและคาเฟ่บรรยากาศดีที่ถนนแหลมทอง พร้อมกะเพรา คั่วพริกเกลือ ผัดผงกะหรี่ ข้าวผัดรถไฟ และกาแฟหอมกรุ่น",
+      excerpt: "ร้านอาหารและคาเฟ่บรรยากาศดีที่ถนนแหลมทอง พร้อม 4 เมนูเด็ด",
       authorId: admin.id,
       status: "PUBLISHED",
       publishedAt: new Date(),
@@ -236,4 +249,3 @@ main()
   .finally(async () => {
     await prisma.$disconnect();
   });
-

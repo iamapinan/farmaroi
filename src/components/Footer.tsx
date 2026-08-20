@@ -61,7 +61,7 @@ export default function Footer() {
                 { href: "/promotions", label: "โปรโมชัน" },
                 { href: "/news", label: "ข่าวสาร" },
                 { href: "/about", label: "เกี่ยวกับเรา" },
-                { href: "/locations", label: "สาขาของเรา" },
+                { href: "/locations", label: "ที่ตั้งร้าน" },
               ].map((link) => (
                 <li key={link.href}>
                   <Link 

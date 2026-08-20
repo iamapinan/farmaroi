@@ -7,15 +7,15 @@ export type OpeningRule = {
   closed?: boolean;
 };
 
-// ค่าเริ่มต้น: ปิดวันอังคาร เปิด 10:00-20:00
+// ค่าเริ่มต้น: เปิดทุกวัน 09:00-19:00
 export const defaultOpeningRules: OpeningRule[] = [
-  { weekday: 0, open: "10:00", close: "20:00" }, // Sun
-  { weekday: 1, open: "10:00", close: "20:00" }, // Mon
-  { weekday: 2, open: "00:00", close: "00:00", closed: true }, // Tue closed
-  { weekday: 3, open: "10:00", close: "20:00" }, // Wed
-  { weekday: 4, open: "10:00", close: "20:00" }, // Thu
-  { weekday: 5, open: "10:00", close: "20:00" }, // Fri
-  { weekday: 6, open: "10:00", close: "20:00" }, // Sat
+  { weekday: 0, open: "09:00", close: "19:00" }, // Sun
+  { weekday: 1, open: "09:00", close: "19:00" }, // Mon
+  { weekday: 2, open: "09:00", close: "19:00" }, // Tue
+  { weekday: 3, open: "09:00", close: "19:00" }, // Wed
+  { weekday: 4, open: "09:00", close: "19:00" }, // Thu
+  { weekday: 5, open: "09:00", close: "19:00" }, // Fri
+  { weekday: 6, open: "09:00", close: "19:00" }, // Sat
 ];
 
 export function isOpenNow(rules: OpeningRule[] = defaultOpeningRules, d = new Date()): boolean {
@@ -42,8 +42,7 @@ export function humanOpeningToday(rules: OpeningRule[] = defaultOpeningRules, d 
   const weekday = (thDate.getDay() as Weekday);
   const rule = rules.find(r => r.weekday === weekday);
   if (!rule) return "-";
-  if (rule.closed) return "ปิดวันนี้ (อังคาร)";
+  if (rule.closed) return "ปิดวันนี้";
   return `${rule.open} - ${rule.close}`;
 }
-
 

@@ -236,7 +236,7 @@ export default function AdminLocationsPage() {
                       <div key={idx} className="grid grid-cols-[120px_1fr_1fr_100px] gap-2 items-center">
                         <span className="text-sm">{day}</span>
                         <input type="time" name={`day${idx}_open`} defaultValue={hour?.openTime || "09:00"} className="px-2 py-1 border border-black/10 rounded text-sm" />
-                        <input type="time" name={`day${idx}_close`} defaultValue={hour?.closeTime || "18:00"} className="px-2 py-1 border border-black/10 rounded text-sm" />
+                        <input type="time" name={`day${idx}_close`} defaultValue={hour?.closeTime || "19:00"} className="px-2 py-1 border border-black/10 rounded text-sm" />
                         <label className="flex items-center gap-1 text-xs">
                           <input type="checkbox" name={`day${idx}_closed`} defaultChecked={hour?.isClosed} className="rounded" />
                           <span>ปิด</span>
@@ -258,4 +258,3 @@ export default function AdminLocationsPage() {
     </div>
   );
 }
-

@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Analytics from "@/components/Analytics";
 import Script from "next/script";
+import { generateLocalBusinessJsonLd } from "@/lib/seo";
 
 const notoThai = Noto_Sans_Thai({
   variable: "--font-noto-thai",
@@ -18,12 +19,12 @@ export const metadata: Metadata = {
     default: "ฟาร์มอร่อย | กะเพรา กาแฟ คาเฟ่ - Farm Aroi Cafe",
     template: "%s | ฟาร์มอร่อย",
   },
-  description: "ฟาร์มอร่อย (Farm Aroi) ร้านอาหารและคาเฟ่สไตล์ฟาร์ม ขึ้นชื่อเรื่องกะเพราจัดจ้านและกาแฟหอมกรุ่น บรรยากาศดี มี 2 สาขา ตะเคียนเตี้ย บางละมุง และ ศรีราชา ชลบุรี",
-  keywords: ["ฟาร์มอร่อย", "Farm Aroi", "ร้านกะเพรา", "คาเฟ่ชลบุรี", "ร้านกาแฟบางละมุง", "ร้านอาหารศรีราชา", "กะเพราถาด", "อาหารตามสั่ง", "ตะเคียนเตี้ย", "ศรีราชา"],
+  description: "ฟาร์มอร่อย ร้านอาหารและคาเฟ่บรรยากาศดี ถนนแหลมทอง ทุ่งสุขลา ศรีราชา เมนูเด่นกะเพรา คั่วพริกเกลือ ผัดผงกะหรี่ และข้าวผัดรถไฟ เปิดทุกวัน 09:00-19:00 น.",
+  keywords: ["ฟาร์มอร่อย", "Farm Aroi", "ร้านกะเพรา", "คาเฟ่ชลบุรี", "ร้านอาหารศรีราชา", "ร้านอาหารแหลมฉบัง", "กะเพรา", "คั่วพริกเกลือ", "ผัดผงกะหรี่", "ข้าวผัดรถไฟ", "ทุ่งสุขลา"],
   metadataBase: new URL("https://farmaroi.net"),
   openGraph: {
     title: "ฟาร์มอร่อย | กะเพรา กาแฟ คาเฟ่",
-    description: "เมนูกะเพราจัดจ้าน กาแฟหอม บรรยากาศฟาร์มคาเฟ่ พร้อมต้อนรับที่ 2 สาขา ในชลบุรี",
+    description: "ร้านอาหารและคาเฟ่บรรยากาศดีที่ถนนแหลมทอง เด่นเรื่องกะเพรา คั่วพริกเกลือ ผัดผงกะหรี่ และข้าวผัดรถไฟ",
     type: "website",
     url: "/",
     siteName: "Farm Aroi",
@@ -40,7 +41,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "ฟาร์มอร่อย | กะเพรา กาแฟ คาเฟ่",
-    description: "สัมผัสบรรยากาศสไตล์ฟาร์มคาเฟ่ พร้อมเสิร์ฟความอร่อยจากกะเพราและกาแฟ",
+    description: "ร้านอาหารและคาเฟ่บรรยากาศดีที่ถนนแหลมทอง เปิดทุกวัน 09:00-19:00 น.",
   },
   alternates: { canonical: "/" },
   robots: {
@@ -82,6 +83,7 @@ export default function RootLayout({
       "availableLanguage": "Thai"
     }
   };
+  const restaurantJsonLd = generateLocalBusinessJsonLd();
 
   return (
     <html lang="th" suppressHydrationWarning>
@@ -90,6 +92,11 @@ export default function RootLayout({
           id="organization-ld"
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+        <Script
+          id="restaurant-ld"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(restaurantJsonLd) }}
         />
         <Providers>
           <Analytics />

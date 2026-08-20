@@ -110,7 +110,7 @@ export default function PrivacyPage() {
                 <ul className="list-none pl-0 space-y-2 mt-4">
                   <li><strong>อีเมล:</strong> contact@farmaroi.com</li>
                   <li><strong>โทรศัพท์:</strong> 092-645-1982</li>
-                  <li><strong>ที่อยู่:</strong> 7/1 หมู่ 1 ต.ตะเคียนเตี้ย อ.บางละมุง ชลบุรี 20130</li>
+                  <li><strong>ที่อยู่:</strong> 69/21 ถนนแหลมทอง ต.ทุ่งสุขลา อ.ศรีราชา จ.ชลบุรี 20230</li>
                 </ul>
               </div>
 
