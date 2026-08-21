@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "เกี่ยวกับเรา | ฟาร์มอร่อย กะเพรา กาแฟ คาเฟ่",
-  description: "เรื่องราวของฟาร์มอร่อย ร้านสไตล์ฟาร์มคาเฟ่ บรรยากาศชิล ใกล้ชิดธรรมชาติ เด่นเรื่องกะเพราสูตรเด็ดและกาแฟหอมคาราเมล",
+  description: "เรื่องราวของฟาร์มอร่อย ร้านอาหารและคาเฟ่บรรยากาศดีที่ถนนแหลมทอง เด่นเรื่องกะเพรา คั่วพริกเกลือ ผัดผงกะหรี่ และข้าวผัดรถไฟ",
 };
 
 export default function AboutPage() {
@@ -27,7 +27,7 @@ export default function AboutPage() {
             เกี่ยวกับเรา
           </h1>
           <p className="text-xl text-white/90 max-w-2xl mx-auto leading-relaxed animate-fade-in delay-100">
-            จากความรักในรสชาติกะเพราและกลิ่นหอมของกาแฟ สู่ฟาร์มคาเฟ่ที่อบอุ่นและเป็นกันเอง
+            จากความรักในอาหารไทยรสจัดจ้านและกลิ่นหอมของกาแฟ สู่ร้านอาหารและคาเฟ่ที่อบอุ่นและเป็นกันเอง
           </p>
         </div>
       </section>
@@ -58,13 +58,13 @@ export default function AboutPage() {
           </div>
 
           <div className="order-1 lg:order-2 animate-fade-in delay-200">
-            <h2 className="section-title mb-8">ฟาร์มคาเฟ่<br/>ในบรรยากาศสวน</h2>
+            <h2 className="section-title mb-8">ร้านอาหารและคาเฟ่<br/>บรรยากาศดีที่แหลมทอง</h2>
             <div className="prose prose-lg text-gray-600 space-y-6">
               <p>
                 <strong className="text-brand text-xl">ฟาร์มอร่อย กะเพรา กาแฟ คาเฟ่</strong> เริ่มต้นจากความตั้งใจที่อยากให้ทุกคนได้ทานอาหารรสชาติจัดจ้านถึงเครื่อง ในบรรยากาศที่ผ่อนคลายเหมือนมาเที่ยวบ้านเพื่อน
               </p>
               <p>
-                สาขาแรกของเราตั้งอยู่ที่ตำบลตะเคียนเตี้ย อำเภอบางละมุง จังหวัดชลบุรี รายล้อมด้วยธรรมชาติที่ร่มรื่น เหมาะสำหรับทุกคนในครอบครัว ไม่ว่าจะเป็นสายกินที่ชอบรสชาติจัดจ้าน หรือสายชิลที่อยากมานั่งจิบกาแฟหอมๆ ที่เข้มข้นตั้งแต่เอาเข้าปากจนกลืนลงคอยังคงได้รสชาติที่เข้มข้นไม่จางลง
+                ปัจจุบันเรามีร้านเดียวที่ถนนแหลมทอง ตำบลทุ่งสุขลา อำเภอศรีราชา จังหวัดชลบุรี พร้อมเสิร์ฟกะเพรา คั่วพริกเกลือ ผัดผงกะหรี่ ข้าวผัดรถไฟ และเครื่องดื่มหลากหลาย ในบรรยากาศสบายๆ ที่เป็นกันเอง
               </p>
               <div className="pl-6 border-l-4 border-brand/30 italic text-gray-500">
                 &quot;เราใส่ใจในทุกรายละเอียด ตั้งแต่การคัดเลือกวัตถุดิบ ไปจนถึงการปรุงรส เพื่อให้ได้รสชาติที่เป็นเอกลักษณ์ของฟาร์มอร่อย&quot;
@@ -112,8 +112,8 @@ export default function AboutPage() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                   </svg>
                 ),
-                title: "บรรยากาศฟาร์ม",
-                desc: "ร่มรื่นด้วยต้นไม้ใหญ่ มีทั้งโซนห้องแอร์และโซนสวน ให้ความรู้สึกผ่อนคลาย",
+                title: "บรรยากาศดี",
+                desc: "บรรยากาศสบายๆ เป็นกันเอง เหมาะกับการมาทานอาหารและพักผ่อน",
                 color: "bg-green-50 text-green-600"
               },
               {
@@ -132,8 +132,8 @@ export default function AboutPage() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 ),
-                title: "เปิดทุกวัน",
-                desc: "หยุดทุกวันอังคาร เปิดให้บริการตั้งแต่เช้าจรดเย็น พร้อมเสิร์ฟความอร่อย",
+                title: "เปิด 09:00-19:00 น.",
+                desc: "เปิดให้บริการทุกวัน ตั้งแต่ 09:00 ถึง 19:00 น.",
                 color: "bg-blue-50 text-blue-600"
               },
               {
@@ -178,7 +178,6 @@ export default function AboutPage() {
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
               {[
                 { icon: "📶", text: "Free Wi-Fi" },
-                { icon: "❄️", text: "ห้องแอร์" },
                 { icon: "🌳", text: "โซนสวน" },
                 { icon: "🚗", text: "ที่จอดรถ" },
                 { icon: "🐕", text: "Pet Friendly" },
@@ -283,7 +282,7 @@ export default function AboutPage() {
           
           <p className="text-xl text-gray-300 mb-10 max-w-2xl mx-auto font-light">
             แวะมาทานกะเพรารสเด็ดและจิบกาแฟหอมๆ ท่ามกลางบรรยากาศธรรมชาติ<br className="hidden md:block" />
-            เปิดให้บริการทุกวัน (หยุดวันอังคาร)
+            เปิดให้บริการทุกวัน เวลา 09:00-19:00 น.
           </p>
           
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">

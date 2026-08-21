@@ -6,8 +6,8 @@ import Link from "next/link";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "สาขาทั้งหมด | Farm Aroi",
-  description: "ค้นหาสาขาใกล้บ้านคุณ ฟาร์มอร่อยพร้อมเสิร์ฟความอร่อย",
+  title: "ที่ตั้งร้าน | Farm Aroi",
+  description: "ฟาร์มอร่อยมีร้านเดียวที่ 69/21 ถนนแหลมทอง ทุ่งสุขลา ศรีราชา เปิดทุกวัน 09:00-19:00 น.",
 };
 
 const weekdayNames = ["อาทิตย์", "จันทร์", "อังคาร", "พุธ", "พฤหัสบดี", "ศุกร์", "เสาร์"];
@@ -37,7 +37,7 @@ export default async function LocationsPage() {
             ที่ตั้งร้าน
           </h1>
           <p className="text-xl text-white/90 max-w-2xl mx-auto leading-relaxed animate-fade-in delay-100">
-            แวะมาทานของอร่อยได้ที่สาขาใกล้บ้านคุณ พร้อมให้บริการด้วยรอยยิ้ม
+            พบกับฟาร์มอร่อยร้านเดียวที่ถนนแหลมทอง ทุ่งสุขลา ศรีราชา
           </p>
         </div>
       </section>
@@ -52,8 +52,8 @@ export default async function LocationsPage() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
               </svg>
             </div>
-            <h3 className="text-xl font-bold text-gray-800 mb-2">ไม่พบข้อมูลสาขา</h3>
-            <p className="text-gray-600">ขออภัย ขณะนี้ยังไม่มีข้อมูลสาขาที่เปิดให้บริการ</p>
+            <h3 className="text-xl font-bold text-gray-800 mb-2">ไม่พบข้อมูลที่ตั้งร้าน</h3>
+            <p className="text-gray-600">ขออภัย ขณะนี้ยังไม่มีข้อมูลที่ตั้งร้าน</p>
           </div>
         ) : (
           <div className="grid gap-8 lg:grid-cols-3">
@@ -104,7 +104,7 @@ export default async function LocationsPage() {
                   <div className="border-t border-gray-100 pt-4 mt-auto">
                     <div className="flex items-center justify-between text-sm">
                       <span className="text-brand font-bold flex items-center gap-1">
-                        ดูรายละเอียดสาขา
+                        ดูรายละเอียดร้าน
                         <svg className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                         </svg>

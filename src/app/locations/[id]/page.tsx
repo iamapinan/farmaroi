@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   return {
     title: `${location.name} | Farm Aroi`,
-    description: `ข้อมูลติดต่อ เวลาทำการ และแผนที่ สาขา ${location.name}`,
+    description: `ข้อมูลติดต่อ เวลาทำการ และแผนที่ร้าน ${location.name}`,
     openGraph: location.logo ? {
         images: [location.logo.url],
     } : undefined,
@@ -117,7 +117,7 @@ export default async function LocationDetailPage({ params }: Props) {
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
             </svg>
-            กลับไปหน้าสาขาทั้งหมด
+            กลับไปหน้าที่ตั้งร้าน
           </Link>
 
           <div className="flex flex-col md:flex-row gap-6 items-end md:items-center">
@@ -175,7 +175,7 @@ export default async function LocationDetailPage({ params }: Props) {
             {/* Menu Section */}
             {location.menuItems.length > 0 && (
               <section className="pt-8 border-t border-gray-100">
-                <h2 className="section-title mb-8">เมนูแนะนำที่สาขานี้</h2>
+                <h2 className="section-title mb-8">เมนูแนะนำของร้าน</h2>
                 
                 {(() => {
                   // Group items by category

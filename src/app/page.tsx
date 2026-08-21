@@ -69,7 +69,7 @@ export default async function Home() {
                 ดูเมนูอาหาร
               </Link>
               <Link href="/locations" className="btn btn-outline-white btn-lg w-full sm:w-auto">
-                ค้นหาสาขา
+                ดูแผนที่ร้าน
               </Link>
             </div>
           </div>
@@ -124,15 +124,15 @@ export default async function Home() {
                   <div className="w-12 h-12 bg-brand/5 rounded-xl flex items-center justify-center text-brand text-2xl mb-2">
                     🌱
                   </div>
-                  <h3 className="text-xl font-bold text-brown">Organic Farm</h3>
-                  <p className="text-gray-600">ผักสดจากฟาร์มอินทรีย์ของเราเอง ปลอดสารพิษ 100%</p>
+                  <h3 className="text-xl font-bold text-brown">4 เมนูเด็ด</h3>
+                  <p className="text-gray-600">กะเพรา คั่วพริกเกลือ ผัดผงกะหรี่ และข้าวผัดรถไฟ</p>
                 </div>
                 <div className="space-y-3">
                   <div className="w-12 h-12 bg-brand/5 rounded-xl flex items-center justify-center text-brand text-2xl mb-2">
                     👨‍🍳
                   </div>
-                  <h3 className="text-xl font-bold text-brown">Expert Chefs</h3>
-                  <p className="text-gray-600">ทีมเชฟมากประสบการณ์ที่ใส่ใจในทุกรายละเอียด</p>
+                  <h3 className="text-xl font-bold text-brown">ร้านเดียวที่แหลมทอง</h3>
+                  <p className="text-gray-600">ร้านอาหารและคาเฟ่บรรยากาศดี เปิดทุกวัน 09:00-19:00 น.</p>
                 </div>
               </div>
 

@@ -40,7 +40,7 @@ export default function Navbar() {
     { href: "/promotions", label: "โปรโมชัน" },
     { href: "/news", label: "ข่าวสาร" },
     { href: "/about", label: "เรื่องราวของเรา" },
-    { href: "/locations", label: "สาขา" },
+    { href: "/locations", label: "ที่ตั้งร้าน" },
   ];
 
   // Hide navbar on admin pages

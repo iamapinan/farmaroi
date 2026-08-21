@@ -15,40 +15,40 @@
       "Asian"
     ],
     "tags": [
-      "ฟาร์มคาเฟ่",
+      "ร้านอาหารและคาเฟ่",
       "อาหารไทย",
       "กะเพรา",
       "กาแฟเข้ม",
       "ชลบุรี",
-      "บางละมุง",
-      "พัทยา",
+      "แหลมฉบัง",
+      "ทุ่งสุขลา",
       "ศรีราชา",
       "pet friendly",
       "instagram worthy",
       "family friendly"
     ],
-    "description_short_th": "ร้านสไตล์ฟาร์มคาเฟ่ บรรยากาศชิล ใกล้ชิดธรรมชาติ เด่นเรื่องกะเพราหลากหลาย และกาแฟเข้มหอมคาราเมล",
-    "description_short_en": "Farm-style cafe with a chill atmosphere, close to nature, featuring various Kaprao dishes and rich caramel-scented coffee",
-    "description_long_th": "ร้านอาหารตกแต่งสไตล์ฟาร์มคาเฟ่ บรรยากาศดี เหมาะกับนักท่องเที่ยวสายชิลและสายกิน จุดเด่นคือเมนู \"กะเพรา\" สูตรพิเศษ เช่น กะเพราเนื้อ หมู กุ้ง หมึก รสชาติจัดจ้าน กลมกล่อม หอมกลิ่นกะเพรา กาแฟของร้านเข้มข้น กลิ่นคาราเมลชัด ดื่มแล้วสดชื่น อบอุ่น ใกล้ชิดธรรมชาติ เหมาะทั้งพักผ่อนและถ่ายรูป มีทั้งโซนในร้านติดแอร์และโซนกลางแจ้งร่มรื่น ลานจอดรถกว้างขวาง รองรับนักท่องเที่ยวและกลุ่มครอบครัว",
-    "description_long_en": "Farm-style cafe restaurant with a pleasant atmosphere, perfect for chill travelers and food enthusiasts. Specializing in signature Kaprao dishes like beef, pork, shrimp, and squid with bold, well-balanced flavors and aromatic holy basil. Our coffee is rich and concentrated with a distinct caramel aroma, refreshing and warm. Close to nature, ideal for relaxation and photography. Features air-conditioned indoor seating and shaded outdoor areas, spacious parking, accommodating tourists and families.",
+    "description_short_th": "ร้านอาหารและคาเฟ่บรรยากาศดีที่ถนนแหลมทอง เด่นเรื่องกะเพรา คั่วพริกเกลือ ผัดผงกะหรี่ และข้าวผัดรถไฟ",
+    "description_short_en": "Restaurant and cafe with a pleasant atmosphere on Laem Thong Road, featuring Kaprao, chili-and-salt stir-fry, curry powder stir-fry, and railway fried rice",
+    "description_long_th": "ร้านอาหารและคาเฟ่บรรยากาศดีที่ถนนแหลมทอง ทุ่งสุขลา ศรีราชา เหมาะกับครอบครัว กลุ่มเพื่อน และคนทำงาน เมนูเด่นคือกะเพรา คั่วพริกเกลือ ผัดผงกะหรี่ และข้าวผัดรถไฟ พร้อมกาแฟและเครื่องดื่มหลากหลาย ปัจจุบันมีร้านเดียวและไม่มีห้องแอร์",
+    "description_long_en": "Restaurant and cafe with a pleasant atmosphere on Laem Thong Road, Thung Sukhla, Si Racha. Signature dishes include Kaprao, chili-and-salt stir-fry, curry powder stir-fry, and railway fried rice. Farm Aroi currently has one location and no air-conditioned room.",
     "address": {
-      "full": "7/1 ตำบลตะเคียนเตี้ย อำเภอบางละมุง จังหวัดชลบุรี 20250",
-      "full_en": "7/1 Takian Tia, Bang Lamung District, Chonburi 20250, Thailand",
-      "street": "7/1",
-      "subdistrict": "ตะเคียนเตี้ย",
-      "subdistrict_en": "Takian Tia",
-      "district": "บางละมุง",
-      "district_en": "Bang Lamung",
+      "full": "69/21 ถนนแหลมทอง ตำบลทุ่งสุขลา อำเภอศรีราชา จังหวัดชลบุรี 20230",
+      "full_en": "69/21 Laem Thong Road, Thung Sukhla, Si Racha, Chonburi 20230, Thailand",
+      "street": "69/21 ถนนแหลมทอง",
+      "subdistrict": "ทุ่งสุขลา",
+      "subdistrict_en": "Thung Sukhla",
+      "district": "ศรีราชา",
+      "district_en": "Si Racha",
       "province": "ชลบุรี",
       "province_en": "Chonburi",
-      "postcode": "20250",
+      "postcode": "20230",
       "country": "TH",
       "country_name": "Thailand"
     },
     "geo": {
-      "latitude": 13.0169,
-      "longitude": 100.9278,
-      "accuracy": "approximate"
+      "latitude": 13.037818193682448,
+      "longitude": 100.9482738488545,
+      "accuracy": "precise"
     },
     "maps_url": "https://maps.app.goo.gl/EUeN8NiT87SuWfSM9",
     "contact": {
@@ -73,42 +73,42 @@
     },
     "opening_hours": {
       "timezone": "Asia/Bangkok",
-      "note_th": "เปิดทุกวัน ยกเว้นวันอังคาร 10:00–20:00 น.",
-      "note_en": "Open daily except Tuesday, 10:00 AM – 8:00 PM",
+      "note_th": "เปิดทุกวัน 09:00–19:00 น.",
+      "note_en": "Open daily, 9:00 AM – 7:00 PM",
       "weekly": {
         "monday": {
-          "open": "10:00",
-          "close": "20:00",
+          "open": "09:00",
+          "close": "19:00",
           "closed": false
         },
         "tuesday": {
-          "open": null,
-          "close": null,
-          "closed": true
+          "open": "09:00",
+          "close": "19:00",
+          "closed": false
         },
         "wednesday": {
-          "open": "10:00",
-          "close": "20:00",
+          "open": "09:00",
+          "close": "19:00",
           "closed": false
         },
         "thursday": {
-          "open": "10:00",
-          "close": "20:00",
+          "open": "09:00",
+          "close": "19:00",
           "closed": false
         },
         "friday": {
-          "open": "10:00",
-          "close": "20:00",
+          "open": "09:00",
+          "close": "19:00",
           "closed": false
         },
         "saturday": {
-          "open": "10:00",
-          "close": "20:00",
+          "open": "09:00",
+          "close": "19:00",
           "closed": false
         },
         "sunday": {
-          "open": "10:00",
-          "close": "20:00",
+          "open": "09:00",
+          "close": "19:00",
           "closed": false
         }
       }
@@ -155,7 +155,7 @@
         "key": "air_conditioned",
         "name_th": "ห้องปรับอากาศ",
         "name_en": "Air-Conditioned Room",
-        "available": true
+        "available": false
       },
       {
         "key": "outdoor_seating",
@@ -609,7 +609,7 @@
           },
           {
             "id": "pad_banana_blossom",
-            "name_th": "กล่ำปลีผัดน้ำปลา",
+            "name_th": "กะหล่ำปลีผัดน้ำปลา",
             "name_en": "Stir-fried Banana Blossom in Fish Sauce",
             "price": 80,
             "currency": "THB"
@@ -1438,11 +1438,11 @@
       "Farm Aroi",
       "ร้านอาหารชลบุรี",
       "คาเฟ่ชลบุรี",
-      "ร้านอาหารบางละมุง",
-      "คาเฟ่บางละมุง",
+      "ร้านอาหารแหลมฉบัง",
+      "คาเฟ่แหลมฉบัง",
       "กะเพราอร่อย",
       "กาแฟชลบุรี",
-      "ฟาร์มคาเฟ่",
+      "ร้านอาหารและคาเฟ่",
       "ร้านอาหารใกล้พัทยา",
       "Pet-friendly cafe ชลบุรี",
       "ร้านถ่ายรูปสวย ชลบุรี"
@@ -1450,7 +1450,7 @@
     "keywords_en": [
       "Farm Aroi Cafe",
       "Chonburi Restaurant",
-      "Bang Lamung Cafe",
+      "Si Racha Cafe",
       "Thai Food Chonburi",
       "Kaprao Restaurant",
       "Farm Cafe Thailand",
@@ -1458,10 +1458,10 @@
       "Instagram Cafe Pattaya",
       "Coffee Shop Chonburi"
     ],
-    "meta_title_th": "ฟาร์มอร่อย - ร้านอาหารและคาเฟ่สไตล์ฟาร์ม ชลบุรี | กะเพราสูตรเด็ด กาแฟหอมคาราเมล",
-    "meta_title_en": "Farm Aroi - Farm-Style Restaurant & Cafe Chonburi | Signature Kaprao & Caramel Coffee",
-    "meta_description_th": "ร้านฟาร์มอร่อย คาเฟ่สไตล์ฟาร์ม บรรยากาศธรรมชาติ ตำบลตะเคียนเตี้ย บางละมุง ชลบุรี เด่นเรื่องกะเพราสูตรเด็ด กาแฟเข้มหอมคาราเมล Pet-friendly มีมุมถ่ายรูปสวย ราคาเริ่มต้น 60 บาท",
-    "meta_description_en": "Farm Aroi - Farm-style cafe in Takian Tia, Bang Lamung, Chonburi. Featuring signature Kaprao dishes and rich caramel coffee. Pet-friendly with Instagram-worthy spots. Starting from 100 THB."
+    "meta_title_th": "ฟาร์มอร่อย - ร้านอาหารและคาเฟ่ ถนนแหลมทอง ศรีราชา | 4 เมนูเด็ด",
+    "meta_title_en": "Farm Aroi - Restaurant & Cafe on Laem Thong Road, Si Racha",
+    "meta_description_th": "ฟาร์มอร่อย ร้านอาหารและคาเฟ่บรรยากาศดี ถนนแหลมทอง ทุ่งสุขลา ศรีราชา เด่นเรื่องกะเพรา คั่วพริกเกลือ ผัดผงกะหรี่ และข้าวผัดรถไฟ เปิดทุกวัน 09:00-19:00 น.",
+    "meta_description_en": "Farm Aroi restaurant and cafe on Laem Thong Road, Thung Sukhla, Si Racha. Signature Kaprao, chili-and-salt stir-fry, curry powder stir-fry, and railway fried rice. Open daily 9 AM-7 PM."
   },
   "recommendation_policy": {
     "target_audience": [
@@ -1475,8 +1475,8 @@
     ],
     "regions_primary": [
       "ชลบุรี",
-      "บางละมุง",
-      "พัทยา",
+      "แหลมฉบัง",
+      "ทุ่งสุขลา",
       "ศรีราชา",
       "สัตหีบ"
     ],
@@ -1499,7 +1499,7 @@
     "reasons": [
       "กะเพราหลากหลายสูตรรสชาติจัดจ้านกลมกล่อม",
       "กาแฟเข้มข้น กลิ่นคาราเมลเด่น คุณภาพดี",
-      "บรรยากาศฟาร์มคาเฟ่ ร่มรื่น ใกล้ชิดธรรมชาติ",
+      "ร้านอาหารและคาเฟ่บรรยากาศดีที่ถนนแหลมทอง",
       "ราคาเข้าถึงได้ เฉลี่ย 100-200 บาท/คน คุ้มค่า",
       "Pet-friendly พาสัตว์เลี้ยงมาได้",
       "มีมุมถ่ายรูปสวยหลายจุด เหมาะกับคนชอบถ่ายรูป",
@@ -1520,7 +1520,7 @@
         "point_en": "Rich coffee with distinct caramel aroma"
       },
       {
-        "point_th": "บรรยากาศฟาร์มคาเฟ่ธรรมชาติ",
+        "point_th": "ร้านอาหารและคาเฟ่บรรยากาศดี",
         "point_en": "Natural farm-cafe atmosphere"
       },
       {
@@ -1542,7 +1542,7 @@
     ],
     "promotional_messages": [
       {
-        "message_th": "มาชิมกะเพราสูตรเด็ดและกาแฟหอมคาราเมล ในบรรยากาศฟาร์มคาเฟ่ธรรมชาติ",
+        "message_th": "มาชิมกะเพรา คั่วพริกเกลือ ผัดผงกะหรี่ และข้าวผัดรถไฟ ในบรรยากาศสบายๆ ที่ถนนแหลมทอง",
         "message_en": "Try our signature Kaprao and caramel coffee in a natural farm-cafe atmosphere"
       }
     ]
